@@ -12,6 +12,7 @@ app.use(cors())
 
 require('./routes')(app)
 
+// Amazon S3 conection
 const s3 = new AWS.S3({
     region: 'eu-central-1',
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -68,7 +69,7 @@ s3.headBucket({ Bucket: bucketName }, (err) => {
         }) // s3.waitFor
     } // s3.heabucket error = 404
     else console.log('Dont have permission')
-}) //s3.headbucket funciton end
+})
 
 
 app.listen(config.port)
