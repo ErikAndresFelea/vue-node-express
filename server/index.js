@@ -1,16 +1,16 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
+// const bodyParser = require('body-parser')
+// const cors = require('cors')
 const morgan = require('morgan')
-const config = require('./config/config')
 const AWS = require('aws-sdk')
 
 const app = express()
 app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
+// app.use(bodyParser.json())
+// app.use(cors())
 
-require('./routes')(app)
+// Routes
+require('./src/routes')(app)
 
 // Amazon S3 conection
 const s3 = new AWS.S3({
@@ -71,6 +71,10 @@ s3.headBucket({ Bucket: bucketName }, (err) => {
     else console.log('Dont have permission')
 })
 
+app.set('port', process.env.PORT || 8081);
+app.use(morgan('dev'));
+app.use(express.json());
 
-app.listen(config.port)
-console.log(`Server started on port ${config.port}`)
+app.listen(app.get('port'), () => {
+    console.log('Server on port', app.get('port'));
+})
