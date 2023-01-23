@@ -1,0 +1,84 @@
+form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  margin: 0 auto;
+}
+  
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+input, textarea {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+body {
+  margin: 0px;
+}
+
+.app-content {
+  display: flex;
+  height: 60vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  transition-duration: 0.5s;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+
+.confirm-button {
+  background-color: #4caf4fea;
+}
+
+.confirm-button:hover {
+  background-color: #0b5e0e;
+  box-shadow: #0b5e0e;
+}
+
+.cancel-button {
+  background-color: #f44336;
+}
+
+.cancel-button:hover {
+  background-color: #ac0f04ec;
+}
+
+.update-button {
+  background-color: #1e60c2ec;
+}
+
+.update-button:hover {
+  background-color: #0f3979ec;
+}
