@@ -2,7 +2,7 @@
   <div>
     <h2>Transcripciones</h2>
     <div>
-      <AllTranscriptionsComp :transcs="transc"/>
+      <AllTranscriptionsComp @delete-transc="deleteTransc" :transcs="transcs"/>
     </div>
     <div style="margin-top: 5px">
       <router-link to="/add">
@@ -24,14 +24,24 @@ export default {
     AllTranscriptionsComp
   },
 
+  methods: {
+    deleteTransc(id) {
+      this.transcs = this.transcs.filter((transc) => transc.id !== id)
+    }
+  },
+  
+  emits: [
+    'delete-transc'
+  ],
+
   data () {
     return {
-      transc: []
+      transcs: []
     }
   },
 
   created () {
-    this.transc = [
+    this.transcs = [
       {
         id: 0,
         block: 'Bloque 1 | Introduccion a las criptomonedas',

@@ -12,7 +12,7 @@
     <router-link to="/update">
       <ButtonComp class="update-button" :text="'Modificar'" />
     </router-link>
-    <ButtonComp class="cancel-button" :text="'Borrar'" />
+    <ButtonComp @btn-click="$emit('delete-transc', transc.id)" class="cancel-button" :text="'Borrar'" />
   </td>
 </template>
 
@@ -21,10 +21,14 @@ import ButtonComp from './ButtonComp.vue'
 
 export default {
   name: 'TranscriptionComp',
-  
+
   props: {
     transc: Object
   },
+
+  emits: [
+    'delete-transc'
+  ],
 
   components: {
     ButtonComp

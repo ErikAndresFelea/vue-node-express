@@ -13,8 +13,8 @@
             Titulo
           </th>
         </tr>
-        <tr :key="item.id" v-for="item in transcs">
-          <TranscriptionComp :transc="item" />
+        <tr :key="transc.id" v-for="transc in transcs">
+          <TranscriptionComp @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
         </tr>
       </tbody>
   </table>
@@ -32,6 +32,10 @@ export default {
   props: {
     transcs: Array
   },
+
+  emits: [
+    'delete-transc'
+  ],
 
   components: {
     TranscriptionComp
