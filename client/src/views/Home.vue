@@ -2,13 +2,7 @@
   <div>
     <h2>Transcripciones</h2>
     <div>
-      <table>
-        <tr v-for="item in transc" :key="item.id">
-          <td>
-            <TranscriptionComp :item="item" />
-          </td>
-        </tr>
-      </table>
+      <AllTranscriptionsComp :transcs="transc"/>
     </div>
     <div style="margin-top: 5px">
       <router-link to="/add">
@@ -20,25 +14,67 @@
 
 <script>
 import ButtonComp from '../components/ButtonComp.vue'
-import TranscriptionComp from '../components/TranscriptionComp.vue'
+import AllTranscriptionsComp from '../components/AllTranscriptionsComp.vue'
 
 export default {
+  name: 'Home',
+  
   components: {
     ButtonComp,
-    TranscriptionComp
+    AllTranscriptionsComp
   },
 
   data () {
     return {
-      transc: [
-        { id: 1, TranscriptionComp },
-        { id: 2, TranscriptionComp },
-        { id: 3, TranscriptionComp },
-        { id: 4, TranscriptionComp },
-        { id: 5, TranscriptionComp },
-        { id: 6, TranscriptionComp }
-      ]
+      transc: []
     }
+  },
+
+  created () {
+    this.transc = [
+      {
+        id: 0,
+        block: 'Bloque 1 | Introduccion a las criptomonedas',
+        elective: '',
+        unit: 'U1 | Criptomonedas, el inicio de la revolucion',
+        title: '¿Que son las criptomonedas? | Leif Ferreira'
+      },
+      {
+        id: 1,
+        block: 'Bloque 1 | Introduccion a las criptomonedas',
+        elective: '',
+        unit: 'U1 | Criptomonedas, el inicio de la revolucion',
+        title: 'U1 | 2.1 | La crisis financiera de 2008'
+      },
+      {
+        id: 2,
+        block: 'Bloque 1 | Introduccion a las criptomonedas',
+        elective: '',
+        unit: 'U3 | Mineria de criptomonedas',
+        title: 'Lucas Guasch | Mineria de criptomonedas'
+      },
+      {
+        id: 3,
+        block: 'Bloque 1 | Introduccion a las criptomonedas',
+        elective: '',
+        unit: 'Xperts | Etherum Foundation',
+        title: 'Xperts | Etherum Foundation'
+      },
+      {
+        id: 4,
+        block: 'Bloque 4 | Ecosistema DeFi',
+        elective: 'Electiva 1',
+        unit: 'U1',
+        title: 'Ecosistma Defi | Eduardo Goig'
+      },
+      {
+        id: 5,
+        block: 'Bloque 4 | Ecosistema DeFi',
+        elective: '',
+        unit: 'Evaluacion bloque 4',
+        title: 'Autoevaluacion Bloque 4'
+      }
+    ]
   }
 }
 </script>

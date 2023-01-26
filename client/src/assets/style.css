@@ -33,6 +33,22 @@ table {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-collapse: collapse;
+}
+
+td, th {
+  text-align: left;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: 1px solid #cfcfcf;
+}
+
+th {
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #e7e7e7;
 }
 
 body {

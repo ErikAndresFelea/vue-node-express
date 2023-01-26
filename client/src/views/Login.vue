@@ -27,6 +27,8 @@
 import ButtonComp from '../components/ButtonComp.vue'
 
 export default {
+  name: 'Login',
+  
   components: {
     ButtonComp
   },

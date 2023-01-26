@@ -25,6 +25,8 @@
 import ButtonComp from '../components/ButtonComp.vue'
 
 export default {
+  name: 'Register',
+  
   components: {
     ButtonComp
   },

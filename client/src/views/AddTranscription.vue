@@ -18,6 +18,8 @@ import AddUpdateComp from '../components/AddUpdateComp.vue'
 import ButtonComp from '../components/ButtonComp.vue'
 
 export default {
+  name: 'AddTranscription',
+  
   components: {
     AddUpdateComp,
     ButtonComp
