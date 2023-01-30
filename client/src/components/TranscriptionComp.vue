@@ -32,11 +32,7 @@ export default {
 
   components: {
     ButtonComp
-  },
-
-  emits: [
-    'btn-delete'
-  ]
+  }
 }
 </script>
 

@@ -19,6 +19,9 @@
         </tr>
       </tbody>
   </table>
+  <div>
+    <ButtonComp @btn-click="$emit('show-add')" class="confirm-button" :text="'Añadir transcripcion'" />
+  </div>
   </div>
 
 
@@ -26,6 +29,7 @@
 
 <script>
 import TranscriptionComp from './TranscriptionComp.vue'
+import ButtonComp from './ButtonComp.vue'
 
 export default {
   name: 'AllTranscriptionsComp',
@@ -35,15 +39,12 @@ export default {
   },
 
   emits: [
-    'delete-transc'
+    'delete-transc', 'show-add'
   ],
 
   components: {
-    TranscriptionComp
-  },
-
-  emits: [
-    'btn-delete'
-  ]
+    TranscriptionComp,
+    ButtonComp
+  }
 }
 </script>

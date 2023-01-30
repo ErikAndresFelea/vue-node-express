@@ -1,5 +1,6 @@
 <template>
-  <form @submit="onSubmit">
+<div>
+  <form @submit.prevent="onSubmit">
     <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
@@ -18,11 +19,10 @@
     </div>
     <div>
       <ButtonComp type="submit" class="confirm-button" :text="'Añadir'" />
-      <router-link to="/home">
-        <ButtonComp class="cancel-button" :text="'Cancelar'" />
-      </router-link>
     </div>
   </form>
+  <ButtonComp @btn-click="showGet" class="cancel-button" :text="'Cancelar'" />
+</div>
 </template>
 
 <script>
@@ -36,9 +36,7 @@ export default {
   },
 
   methods: {
-    onSubmit(e) {
-      e.preventDefault()
-
+    onSubmit() {
       const newTransc = {
         id: Math.floor(Math.random() * 100000),
         block: this.block,
@@ -49,8 +47,23 @@ export default {
       }
 
       // alert('Tarea añadida')
-      // this.$router.push('/home')
       this.$emit('add-transc', newTransc)
+
+      reset()
+    },
+
+    showGet() {
+      this.$emit('show-get')
+
+      reset()
+    },
+
+    reset() {
+      this.block = '',
+      this.elective = '',
+      this.unit = '',
+      this.title = '',
+      this.text = ''
     }
   },
 
@@ -62,7 +75,11 @@ export default {
       title: '',
       text: ''
     }
-  }
+  },
+
+  emits: [
+    'add-transc', 'show-get'
+  ]
 }
 </script>
 

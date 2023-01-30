@@ -1,9 +1,9 @@
 <template>
   <div>
-    <AddTranscription @addTransc="addTranscription" v-show="true"/>
+    <AddTranscription @show-get="toggleShow(false, true)" @add-transc="addTranscription" v-show="showAdd"/>
   </div>
   <div>
-    <AllTranscriptionsComp @delete-transc="deleteTranscription" :transcs="transcs"  v-show="true"/>
+    <AllTranscriptionsComp @show-add="toggleShow(true, false)" @delete-transc="deleteTranscription" :transcs="transcs"  v-show="showGet"/>
   </div>
 </template>
 
@@ -32,11 +32,16 @@ export default {
       this.transcs = [...transcs, transcripcion]
 
       console.log(transcripcion)
+    },
+
+    toggleShow(add, get) {
+      this.showAdd = add,
+      this.showGet = get
     }
   },
   
   emits: [
-    'delete-transc'
+    'delete-transc', 'show-get', 'show-add'
   ],
 
   data () {
