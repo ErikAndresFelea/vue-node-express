@@ -32,6 +32,10 @@ export default {
       console.log(transcripcion)
     }
   },
+  
+  emits: [
+    'delete-transc'
+  ],
 
   data () {
     return {

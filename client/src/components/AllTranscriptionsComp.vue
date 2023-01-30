@@ -34,6 +34,10 @@ export default {
     transcs: Array
   },
 
+  emits: [
+    'delete-transc'
+  ],
+
   components: {
     TranscriptionComp
   },

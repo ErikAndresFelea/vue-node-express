@@ -21,10 +21,14 @@ import ButtonComp from './ButtonComp.vue'
 
 export default {
   name: 'TranscriptionComp',
-  
+
   props: {
     transc: Object
   },
+
+  emits: [
+    'delete-transc'
+  ],
 
   components: {
     ButtonComp
