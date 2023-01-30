@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Transcripciones</h2>
     <table>
       <tbody >
         <tr>
@@ -13,8 +14,8 @@
             Titulo
           </th>
         </tr>
-        <tr :key="item.id" v-for="item in transcs">
-          <TranscriptionComp :transc="item" />
+        <tr :key="transc.id" v-for="transc in transcs">
+          <TranscriptionComp @btn-delete="$emit('btn-delete', transc.id)" :transc="transc" />
         </tr>
       </tbody>
   </table>
@@ -35,6 +36,10 @@ export default {
 
   components: {
     TranscriptionComp
-  }
+  },
+
+  emits: [
+    'btn-delete'
+  ]
 }
 </script>

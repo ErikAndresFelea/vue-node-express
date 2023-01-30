@@ -1,37 +1,48 @@
 <template>
   <div>
-    <h2>Transcripciones</h2>
-    <div>
-      <AllTranscriptionsComp :transcs="transc"/>
-    </div>
-    <div style="margin-top: 5px">
-      <router-link to="/add">
-        <ButtonComp class="confirm-button" :text="'Añadir transcripcion'" />
-      </router-link>
-    </div>
+    <AddTranscription @add-transc="addTranscription" v-show="showAdd"/>
+    <AllTranscriptionsComp @btn-delete="deleteTranscription" v-show="showGet"/>
   </div>
 </template>
 
 <script>
 import ButtonComp from '../components/ButtonComp.vue'
 import AllTranscriptionsComp from '../components/AllTranscriptionsComp.vue'
+import AddTranscription from '../components/AddTranscription.vue'
 
 export default {
   name: 'Home',
   
   components: {
     ButtonComp,
-    AllTranscriptionsComp
+    AllTranscriptionsComp,
+    AddTranscription
+  },
+
+  methods: {
+    deleteTranscription(id) {
+      if(confirm('¿Seguro quieres borrar esta transcripicon?')) {
+        this.transcs = this.transcs.filter((transc) => transc.id !== id)
+      }
+    },
+
+    addTranscription(transcripcion) {
+      this.transcs = [...transcs, transcripcion]
+
+      console.log(transcripcion)
+    }
   },
 
   data () {
     return {
-      transc: []
+      transcs: [],
+      showAdd: false,
+      showGet: true
     }
   },
 
   created () {
-    this.transc = [
+    this.transcs = [
       {
         id: 0,
         block: 'Bloque 1 | Introduccion a las criptomonedas',

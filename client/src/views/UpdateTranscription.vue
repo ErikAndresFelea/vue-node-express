@@ -1,7 +1,7 @@
 <template>
   <h2>Modificar transcripcion</h2>
   <div>
-    <AddUpdateComp :titleText="'Modificar transcripcion'" />
+    <AddUpdateComp />
         <div>
         <ButtonComp class="confirm-button" :text="'Modificar'" />
         <router-link to="/home">

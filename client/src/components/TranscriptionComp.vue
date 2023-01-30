@@ -12,7 +12,7 @@
     <router-link to="/update">
       <ButtonComp class="update-button" :text="'Modificar'" />
     </router-link>
-    <ButtonComp class="cancel-button" :text="'Borrar'" />
+    <ButtonComp @btn-click="$emit('btn-delete', transc.id)" class="cancel-button" :text="'Borrar'" />
   </td>
 </template>
 
@@ -28,7 +28,11 @@ export default {
 
   components: {
     ButtonComp
-  }
+  },
+
+  emits: [
+    'btn-delete'
+  ]
 }
 </script>
 

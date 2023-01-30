@@ -1,7 +1,7 @@
 <template>
   <div class="app-content">
     <h2>Iniciar sesion</h2>
-    <form @submit="login">
+    <form @submit="login" class="login-form">
       <div class="form-group">
         <input placeholder="Introduce tu usuario" id="username" v-model="username" type="text" required>
       </div>
