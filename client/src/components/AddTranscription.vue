@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addTranscription">
+  <form @submit="onSubmit">
     <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
@@ -36,7 +36,9 @@ export default {
   },
 
   methods: {
-    addTranscription() {
+    onSubmit(e) {
+      e.preventDefault()
+
       const newTransc = {
         id: Math.floor(Math.random() * 100000),
         block: this.block,

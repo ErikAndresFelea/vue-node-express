@@ -15,7 +15,7 @@
           </th>
         </tr>
         <tr :key="transc.id" v-for="transc in transcs">
-          <TranscriptionComp @btn-delete="$emit('btn-delete', transc.id)" :transc="transc" />
+          <TranscriptionComp @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
         </tr>
       </tbody>
   </table>

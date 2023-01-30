@@ -1,7 +1,9 @@
 <template>
   <div>
-    <AddTranscription @add-transc="addTranscription" v-show="showAdd"/>
-    <AllTranscriptionsComp @btn-delete="deleteTranscription" v-show="showGet"/>
+    <AddTranscription @addTransc="addTranscription" v-show="true"/>
+  </div>
+  <div>
+    <AllTranscriptionsComp @delete-transc="deleteTranscription" :transcs="transcs"  v-show="true"/>
   </div>
 </template>
 
