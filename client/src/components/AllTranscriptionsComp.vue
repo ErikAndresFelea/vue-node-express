@@ -15,7 +15,7 @@
           </th>
         </tr>
         <tr :key="transc.id" v-for="transc in transcs">
-          <TranscriptionComp @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
+          <TranscriptionComp @show-update="$emit('show-update')" @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
         </tr>
       </tbody>
   </table>
@@ -39,7 +39,7 @@ export default {
   },
 
   emits: [
-    'delete-transc', 'show-add'
+    'delete-transc', 'show-add', 'show-update'
   ],
 
   components: {
