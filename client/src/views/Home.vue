@@ -1,9 +1,12 @@
 <template>
   <div>
-    <AddTranscription @show-get="toggleShow(false, true)" @add-transc="addTranscription" v-show="showAdd"/>
+    <AddTranscription @show-get-a="toggleShow(false, false, true)" @add-transc="addTranscription" v-show="showAdd"/>
   </div>
   <div>
-    <AllTranscriptionsComp @show-add="toggleShow(true, false)" @delete-transc="deleteTranscription" :transcs="transcs"  v-show="showGet"/>
+    <UpdateTranscription @show-get-u="toggleShow(false, false, true)" v-show="showUpdate"/>
+  </div>
+  <div>
+    <AllTranscriptionsComp @show-update="toggleShow(false, true, false)" @show-add="toggleShow(true, false, false)" @delete-transc="deleteTranscription" :transcs="transcs"  v-show="showGet"/>
   </div>
 </template>
 
@@ -11,6 +14,7 @@
 import ButtonComp from '../components/ButtonComp.vue'
 import AllTranscriptionsComp from '../components/AllTranscriptionsComp.vue'
 import AddTranscription from '../components/AddTranscription.vue'
+import UpdateTranscription from '../components/UpdateTranscription.vue'
 
 export default {
   name: 'Home',
@@ -18,7 +22,8 @@ export default {
   components: {
     ButtonComp,
     AllTranscriptionsComp,
-    AddTranscription
+    AddTranscription,
+    UpdateTranscription
   },
 
   methods: {
@@ -34,20 +39,22 @@ export default {
       console.log(transcripcion)
     },
 
-    toggleShow(add, get) {
+    toggleShow(add, update, get) {
       this.showAdd = add,
+      this.showUpdate = update,
       this.showGet = get
     }
   },
   
   emits: [
-    'delete-transc', 'show-get', 'show-add'
+    'delete-transc', 'show-get-a', 'show-get-u', 'show-add', 'show-update'
   ],
 
   data () {
     return {
       transcs: [],
       showAdd: false,
+      showUpdate: false,
       showGet: true
     }
   },

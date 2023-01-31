@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/Register'
 import Login from '../views/Login'
 import Home from '../views/Home'
-import UpdateTranscription from '../views/UpdateTranscription'
 
 const routes = [
   {
@@ -20,11 +19,6 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/update',
-    name: 'UpdateTranscription',
-    component: UpdateTranscription
   }
 ]
 
