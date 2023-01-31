@@ -1,7 +1,7 @@
 <template>
 <div>
   <form @submit.prevent="onSubmit" >
-    <h2>Modificar transcripcion</h2>
+    <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
     </div>
@@ -20,7 +20,6 @@
     <div>
       <ButtonComp type="submit" class="confirm-button" :text="'Añadir'" />
       <ButtonComp type="reset" @btn-click="showGet" class="cancel-button" :text="'Cancelar'" />
-      <!-- <ButtonComp @btn-click="showGet" class="cancel-button" :text="'Cancelar'" /> -->
     </div>
   </form>
 </div>
@@ -30,15 +29,36 @@
 import ButtonComp from './ButtonComp.vue'
 
 export default {
-  name: 'UpdateTranscription',
-
+  name: 'AddTranscriptionComp',
+  
   components: {
     ButtonComp
   },
 
   methods: {
+    onSubmit() {
+      const newTransc = {
+        id: Math.floor(Math.random() * 100000),
+        block: this.block,
+        elective: this.elective,
+        unit: this.unit,
+        title: this.title,
+        text: this.text
+      }
+
+      alert('Tarea añadida')
+      this.$emit('add-transc', newTransc)
+      this.$emit('show-get-a')
+
+      this.block = '',
+      this.elective = '',
+      this.unit = '',
+      this.title = '',
+      this.text = ''
+    },
+
     showGet() {
-      this.$emit('show-get-u')
+      this.$emit('show-get-a')
 
       this.block = '',
       this.elective = '',
@@ -56,7 +76,11 @@ export default {
       title: '',
       text: ''
     }
-  }
+  },
+
+  emits: [
+    'add-transc', 'show-get-a'
+  ]
 }
 </script>
 

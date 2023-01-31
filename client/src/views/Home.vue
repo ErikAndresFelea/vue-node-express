@@ -1,9 +1,9 @@
 <template>
   <div>
-    <AddTranscription @show-get-a="toggleShow(false, false, true)" @add-transc="addTranscription" v-show="showAdd"/>
+    <AddTranscriptionComp @show-get-a="toggleShow(false, false, true)" @add-transc="addTranscription" v-show="showAdd"/>
   </div>
   <div>
-    <UpdateTranscription @show-get-u="toggleShow(false, false, true)" v-show="showUpdate"/>
+    <UpdateTranscriptionComp @show-get-u="toggleShow(false, false, true)" v-show="showUpdate"/>
   </div>
   <div>
     <AllTranscriptionsComp @show-update="toggleShow(false, true, false)" @show-add="toggleShow(true, false, false)" @delete-transc="deleteTranscription" :transcs="transcs"  v-show="showGet"/>
@@ -13,8 +13,8 @@
 <script>
 import ButtonComp from '../components/ButtonComp.vue'
 import AllTranscriptionsComp from '../components/AllTranscriptionsComp.vue'
-import AddTranscription from '../components/AddTranscription.vue'
-import UpdateTranscription from '../components/UpdateTranscription.vue'
+import AddTranscriptionComp from '../components/AddTranscriptionComp.vue'
+import UpdateTranscriptionComp from '../components/UpdateTranscriptionComp.vue'
 
 export default {
   name: 'Home',
@@ -22,8 +22,8 @@ export default {
   components: {
     ButtonComp,
     AllTranscriptionsComp,
-    AddTranscription,
-    UpdateTranscription
+    AddTranscriptionComp,
+    UpdateTranscriptionComp
   },
 
   methods: {
@@ -35,8 +35,6 @@ export default {
 
     addTranscription(transcripcion) {
       this.transcs = [...this.transcs, transcripcion]
-
-      console.log(transcripcion)
     },
 
     toggleShow(add, update, get) {
