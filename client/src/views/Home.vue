@@ -1,12 +1,26 @@
 <template>
   <div>
-    <AddTranscriptionComp @show-get-a="toggleShow(false, false, true)" @add-transc="addTranscription" v-show="showAdd"/>
+    <AddTranscriptionComp 
+      @show-get-a="toggleShow(false, false, true)" 
+      @add-transc="addTranscription" 
+      v-show="showAdd"
+    />
   </div>
   <div>
-    <UpdateTranscriptionComp @show-get-u="toggleShow(false, false, true)" v-show="showUpdate"/>
+    <UpdateTranscriptionComp 
+      @show-get-u="toggleShow(false, false, true)" 
+      v-show="showUpdate"
+      :updTransc="updTransc"
+    />
   </div>
   <div>
-    <AllTranscriptionsComp @show-update="toggleShow(false, true, false)" @show-add="toggleShow(true, false, false)" @delete-transc="deleteTranscription" :transcs="transcs"  v-show="showGet"/>
+    <AllTranscriptionsComp 
+      @show-update="updateTranscription" 
+      @show-add="toggleShow(true, false, false)" 
+      @delete-transc="deleteTranscription" 
+      :transcs="transcs"  
+      v-show="showGet"
+    />
   </div>
 </template>
 
@@ -33,8 +47,19 @@ export default {
       }
     },
 
-    addTranscription(transcripcion) {
-      this.transcs = [...this.transcs, transcripcion]
+    addTranscription(transcription) {
+      this.transcs = [...this.transcs, transcription]
+    },
+
+    updateTranscription(trancription) {
+      this.toggleShow(false, true, false)
+      this.updTransc = {
+        id: trancription.id,
+        block: trancription.block,
+        elective: trancription.elective,
+        unit: trancription.unit,
+        title: trancription.title
+      }
     },
 
     toggleShow(add, update, get) {
@@ -53,7 +78,8 @@ export default {
       transcs: [],
       showAdd: false,
       showUpdate: false,
-      showGet: true
+      showGet: true,
+      updTransc: {}
     }
   },
 

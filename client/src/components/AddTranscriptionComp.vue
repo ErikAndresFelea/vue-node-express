@@ -49,23 +49,21 @@ export default {
       alert('Tarea añadida')
       this.$emit('add-transc', newTransc)
       this.$emit('show-get-a')
-
-      this.block = '',
-      this.elective = '',
-      this.unit = '',
-      this.title = '',
-      this.text = ''
+      this.reset()
     },
 
     showGet() {
       this.$emit('show-get-a')
+      this.reset()
+    },
 
+    reset() {
       this.block = '',
       this.elective = '',
       this.unit = '',
       this.title = '',
       this.text = ''
-    },
+    }
   },
 
   data () {
