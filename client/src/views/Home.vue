@@ -29,7 +29,7 @@ export default {
     },
 
     addTranscription(transcripcion) {
-      this.transcs = [...transcs, transcripcion]
+      this.transcs = [...this.transcs, transcripcion]
 
       console.log(transcripcion)
     },

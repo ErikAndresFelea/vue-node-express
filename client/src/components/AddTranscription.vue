@@ -1,6 +1,6 @@
 <template>
 <div>
-  <form @submit.prevent="onSubmit">
+  <form @submit.prevent="onSubmit" >
     <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
@@ -19,9 +19,9 @@
     </div>
     <div>
       <ButtonComp type="submit" class="confirm-button" :text="'Añadir'" />
+      <ButtonComp @btn-click="showGet" class="cancel-button" :text="'Cancelar'" />
     </div>
   </form>
-  <ButtonComp @btn-click="showGet" class="cancel-button" :text="'Cancelar'" />
 </div>
 </template>
 
@@ -46,25 +46,26 @@ export default {
         text: this.text
       }
 
-      // alert('Tarea añadida')
+      alert('Tarea añadida')
       this.$emit('add-transc', newTransc)
-
-      reset()
-    },
-
-    showGet() {
       this.$emit('show-get')
 
-      reset()
-    },
-
-    reset() {
       this.block = '',
       this.elective = '',
       this.unit = '',
       this.title = '',
       this.text = ''
-    }
+    },
+
+    showGet() {
+      this.$emit('show-get')
+
+      this.block = '',
+      this.elective = '',
+      this.unit = '',
+      this.title = '',
+      this.text = ''
+    },
   },
 
   data () {
