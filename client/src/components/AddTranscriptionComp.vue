@@ -46,10 +46,9 @@ export default {
         text: this.text
       }
 
-      alert('Tarea añadida')
+      alert('Transcripcion añadida')
       this.$emit('add-transc', newTransc)
-      this.$emit('show-get-a')
-      this.reset()
+      this.showGet()
     },
 
     showGet() {

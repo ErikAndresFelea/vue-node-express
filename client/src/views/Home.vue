@@ -9,13 +9,14 @@
   <div>
     <UpdateTranscriptionComp 
       @show-get-u="toggleShow(false, false, true)" 
-      v-show="showUpdate"
+      @upd-transc="updateTranscription"
       :updTransc="updTransc"
+      v-show="showUpdate"
     />
   </div>
   <div>
     <AllTranscriptionsComp 
-      @show-update="updateTranscription" 
+      @show-update="updateTranscriptionView" 
       @show-add="toggleShow(true, false, false)" 
       @delete-transc="deleteTranscription" 
       :transcs="transcs"  
@@ -51,15 +52,21 @@ export default {
       this.transcs = [...this.transcs, transcription]
     },
 
-    updateTranscription(trancription) {
+    updateTranscriptionView(transcription) {
       this.toggleShow(false, true, false)
       this.updTransc = {
-        id: trancription.id,
-        block: trancription.block,
-        elective: trancription.elective,
-        unit: trancription.unit,
-        title: trancription.title
+        id: transcription.id,
+        block: transcription.block,
+        elective: transcription.elective,
+        unit: transcription.unit,
+        title: transcription.title,
+        text: transcription.text
       }
+    },
+
+    updateTranscription(transcription) {
+      this.transcs = this.transcs.filter((transc) => transc.id !== transcription.id)
+      this.transcs = [...this.transcs, transcription]
     },
 
     toggleShow(add, update, get) {
@@ -70,7 +77,7 @@ export default {
   },
   
   emits: [
-    'delete-transc', 'show-get-a', 'show-get-u', 'show-add', 'show-update'
+    'delete-transc', 'show-get-a', 'show-get-u', 'show-add', 'show-update', 'upd-transc'
   ],
 
   data () {
