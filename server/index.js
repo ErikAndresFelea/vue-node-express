@@ -1,12 +1,14 @@
 const express = require('express')
-// const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
+const path = require('path')
 // const cors = require('cors')
 const morgan = require('morgan')
 const AWS = require('aws-sdk')
 
 const app = express()
 app.use(morgan('combined'))
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
+app.use(express.json());
 // app.use(cors())
 
 // Routes
@@ -72,8 +74,6 @@ s3.headBucket({ Bucket: bucketName }, (err) => {
 })
 
 app.set('port', process.env.PORT || 8081);
-app.use(morgan('dev'));
-app.use(express.json());
 
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
