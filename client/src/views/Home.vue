@@ -65,8 +65,12 @@ export default {
     },
 
     updateTranscription(transcription) {
-      this.transcs = this.transcs.filter((transc) => transc.id !== transcription.id)
-      this.transcs = [...this.transcs, transcription]
+      const objIndex = this.transcs.findIndex((obj) => obj.id == transcription.id)
+      this.transcs[objIndex].block = transcription.block
+      this.transcs[objIndex].elective = transcription.elective
+      this.transcs[objIndex].unit = transcription.unit
+      this.transcs[objIndex].title = transcription.title
+      this.transcs[objIndex].text = transcription.text
     },
 
     toggleShow(add, update, get) {
@@ -97,42 +101,48 @@ export default {
         block: 'Bloque 1 | Introduccion a las criptomonedas',
         elective: '',
         unit: 'U1 | Criptomonedas, el inicio de la revolucion',
-        title: '¿Que son las criptomonedas? | Leif Ferreira'
+        title: '¿Que son las criptomonedas? | Leif Ferreira',
+        text: ''
       },
       {
         id: 1,
         block: 'Bloque 1 | Introduccion a las criptomonedas',
         elective: '',
         unit: 'U1 | Criptomonedas, el inicio de la revolucion',
-        title: 'U1 | 2.1 | La crisis financiera de 2008'
+        title: 'U1 | 2.1 | La crisis financiera de 2008',
+        text: ''
       },
       {
         id: 2,
         block: 'Bloque 1 | Introduccion a las criptomonedas',
         elective: '',
         unit: 'U3 | Mineria de criptomonedas',
-        title: 'Lucas Guasch | Mineria de criptomonedas'
+        title: 'Lucas Guasch | Mineria de criptomonedas',
+        text: ''
       },
       {
         id: 3,
         block: 'Bloque 1 | Introduccion a las criptomonedas',
         elective: '',
         unit: 'Xperts | Etherum Foundation',
-        title: 'Xperts | Etherum Foundation'
+        title: 'Xperts | Etherum Foundation',
+        text: ''
       },
       {
         id: 4,
         block: 'Bloque 4 | Ecosistema DeFi',
         elective: 'Electiva 1',
         unit: 'U1',
-        title: 'Ecosistma Defi | Eduardo Goig'
+        title: 'Ecosistma Defi | Eduardo Goig',
+        text: ''
       },
       {
         id: 5,
         block: 'Bloque 4 | Ecosistema DeFi',
         elective: '',
         unit: 'Evaluacion bloque 4',
-        title: 'Autoevaluacion Bloque 4'
+        title: 'Autoevaluacion Bloque 4',
+        text: ''
       }
     ]
   }
