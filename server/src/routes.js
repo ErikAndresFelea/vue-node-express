@@ -39,28 +39,25 @@ module.exports = (app) => {
 
     // Delete a transcription
     app.delete('/transcriptions/:id', (req, res) => {
-        const id = req.params.id
+        const id = parseInt(req.params.id)
 
         fs.readFile(databaseFile, (err, data) => {
-            if (err) res.status(500).send({ message: err })
+            if (err) res.status(500).send({ message: err})
 
             // Search for the transcription with id given
             const jsonData = JSON.parse(data)
-            const index = jsonData.findIndex(i => i.id === id)
+            const index = jsonData.findIndex(t => t.id === id)
 
             if (index === -1) res.status(404).send({ message: 'Transcripcion no encontrada' })
 
             // Add the updated info to the json
-            jsonData.splice(index, 1)
-            fs.writeFile(databaseFile, JSON.stringify(jsonData), (err) => {
-                if (err) res.status(500).send({ msg: err })
-                res.status(200).send({ message: 'Transcripcion eliminada' })
-            })
+            else {
+                jsonData.splice(index, 1)
+                fs.writeFile(databaseFile, JSON.stringify(jsonData), (err) => {
+                    if (err) res.status(500).send({ msg: err })
+                    res.status(200).send({ message: 'Transcripcion eliminada' })
+                })
+            }
         })
-    })
-
-    // Prueba
-    app.get('/db-pruebas', (req, res) => {
-        res.sendFile(databaseFile)
     })
 }
