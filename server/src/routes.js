@@ -34,7 +34,27 @@ module.exports = (app) => {
 
     // Update a transcription
     app.put('/transcriptions/:id', (req, res) => {
-        res.json({ msg: `Updated the transcription with id ${req.params.id}` })
+        const id = parseInt(req.params.id)
+        const body = req.body
+
+        fs.readFile(databaseFile, (err, data) => {
+            if (err) res.status(500).send({ message: err})
+            
+            // Search for the transcription with id given
+            const jsonData = JSON.parse(data)
+            const index = jsonData.findIndex(t => t.id === id)
+
+            if (index === -1) res.status(404).send({ message: 'Transcripcion no encontrada' })
+
+            // Add the updated info to the json
+            else {
+                jsonData[index] = { ...jsonData[index], ...body }
+                fs.writeFile(databaseFile, JSON.stringify(jsonData), (err) => {
+                    if (err) res.status(500).send({ msg: err })
+                    res.status(200).send({ message: 'Transcripcion modificada' })
+                })
+            }
+        })
     })
 
     // Delete a transcription
