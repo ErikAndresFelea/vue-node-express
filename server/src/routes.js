@@ -25,7 +25,7 @@ module.exports = (app) => {
             jsonData.push(transcription)
 
             // Write on the json
-            fs.writeFile(databaseFile, JSON.stringify(jsonData), err => {
+            fs.writeFile(databaseFile, JSON.stringify(jsonData, null, 4), err => {
                 if (err) return res.status(500).send(err)
                 res.status(201).send('Transcripcion creada')
             })
@@ -49,7 +49,7 @@ module.exports = (app) => {
             // Add the updated info to the json
             else {
                 jsonData[index] = { ...jsonData[index], ...body }
-                fs.writeFile(databaseFile, JSON.stringify(jsonData), (err) => {
+                fs.writeFile(databaseFile, JSON.stringify(jsonData, null, 4), (err) => {
                     if (err) res.status(500).send({ msg: err })
                     res.status(200).send({ message: 'Transcripcion modificada' })
                 })
@@ -73,7 +73,7 @@ module.exports = (app) => {
             // Add the updated info to the json
             else {
                 jsonData.splice(index, 1)
-                fs.writeFile(databaseFile, JSON.stringify(jsonData), (err) => {
+                fs.writeFile(databaseFile, JSON.stringify(jsonData, null, 4), (err) => {
                     if (err) res.status(500).send({ msg: err })
                     res.status(200).send({ message: 'Transcripcion eliminada' })
                 })
