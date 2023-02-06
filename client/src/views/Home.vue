@@ -66,11 +66,14 @@ export default {
 
     updateTranscription(transcription) {
       const objIndex = this.transcs.findIndex((obj) => obj.id == transcription.id)
-      this.transcs[objIndex].block = transcription.block
-      this.transcs[objIndex].elective = transcription.elective
-      this.transcs[objIndex].unit = transcription.unit
-      this.transcs[objIndex].title = transcription.title
-      this.transcs[objIndex].text = transcription.text
+      const trs = this.transcs[objIndex]
+      trs.id = transcription.id 
+      trs.block = transcription.block
+      trs.elective = transcription.elective
+      trs.unit = transcription.unit
+      trs.title = transcription.title
+      trs.text = transcription.text
+      this.transcs[objIndex] = trs
     },
 
     toggleShow(add, update, get) {
