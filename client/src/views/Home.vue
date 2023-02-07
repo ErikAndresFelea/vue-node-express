@@ -48,8 +48,15 @@ export default {
       }
     },
 
-    addTranscription(transcription) {
-      this.transcs = [...this.transcs, transcription]
+    // Add a trancription
+    async addTranscription(transcription) {
+      const res = await fetch(`api/transcriptions`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(transcription)
+      })
     },
 
     updateTranscriptionView(transcription) {
@@ -82,8 +89,16 @@ export default {
       this.showGet = get
     },
 
-    async fetchTranscs() {
-      const res = await fetch('http://localhost:8081/transcriptions')
+    // Get all transcriptions
+    async fetchTranscriptions() {
+      const res = await fetch(`api/transcriptions`)
+      const data = await res.json()
+      return data
+    },
+
+    // Get a specific transcription
+    async fetchTranscription() {
+      const res = await fetch(`api/transcriptions/${id}`)
       const data = await res.json()
       return data
     }
@@ -104,7 +119,7 @@ export default {
   },
 
   async created () {
-    this.transcs = await this.fetchTranscs()
+    this.transcs = await this.fetchTranscriptions()
   }
 }
 </script>

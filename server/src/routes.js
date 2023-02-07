@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 module.exports = (app) => {
-    databaseFile = 'C:/Users/Argnos/Desktop/fullstack-project/server/db-pruebas.json'
+    databaseFile = 'C:/Users/Argnos/Desktop/db-pruebas.json'
 
     // Obtain the transcriptions
     app.get('/transcriptions', (req, res) => {
