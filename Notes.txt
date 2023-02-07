@@ -1,0 +1,2 @@
+Check Home to fix UI not displaying changes (when adding a transcription)
+Check AddTranscriptionComp if above fixed

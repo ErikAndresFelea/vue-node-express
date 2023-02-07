@@ -42,9 +42,15 @@ export default {
   },
 
   methods: {
-    deleteTranscription(id) {
+    // Delete a transcription
+    async deleteTranscription(id) {
       if(confirm('¿Seguro quieres borrar esta transcripicon?')) {
-        this.transcs = this.transcs.filter((transc) => transc.id !== id)
+        const res = await fetch(`api/transcriptions/${id}`, {
+        method: 'DELETE'
+      })
+
+      // Update the UI
+      res.status === 200 ? (this.transcs = this.transcs.filter((transc) => transc.id !== id)) : alert('Error al borrar la transcripcion')
       }
     },
 
@@ -57,10 +63,16 @@ export default {
         },
         body: JSON.stringify(transcription)
       })
+
+      // Update the UI - Not working yet
+      const data = await res.json()
+      this.transcs = [...this.transcs, data]
     },
 
-    updateTranscriptionView(transcription) {
+    // Get the specified transcription to fill the update form
+    async updateTranscriptionView(id) {
       this.toggleShow(false, true, false)
+      const transcription = await this.fetchTranscription(id)
       this.updTransc = {
         id: transcription.id,
         block: transcription.block,
@@ -71,10 +83,19 @@ export default {
       }
     },
 
-    updateTranscription(transcription) {
+    // Update the transcription
+    async updateTranscription(transcription) {
+      const res = await fetch(`api/transcriptions/${transcription.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(transcription)
+      })
+
+      // Update the UI
       const objIndex = this.transcs.findIndex((obj) => obj.id == transcription.id)
       const trs = this.transcs[objIndex]
-      trs.id = transcription.id 
       trs.block = transcription.block
       trs.elective = transcription.elective
       trs.unit = transcription.unit
@@ -83,13 +104,14 @@ export default {
       this.transcs[objIndex] = trs
     },
 
+    // Display the different components of the UI
     toggleShow(add, update, get) {
       this.showAdd = add,
       this.showUpdate = update,
       this.showGet = get
     },
 
-    // Get all transcriptions
+    // Get all transcriptions to display on home
     async fetchTranscriptions() {
       const res = await fetch(`api/transcriptions`)
       const data = await res.json()
@@ -97,7 +119,7 @@ export default {
     },
 
     // Get a specific transcription
-    async fetchTranscription() {
+    async fetchTranscription(id) {
       const res = await fetch(`api/transcriptions/${id}`)
       const data = await res.json()
       return data

@@ -1,6 +1,7 @@
 <template>
 <div>
   <form @submit="onSubmit" >
+    <!-- <form @submit.prevent="onSubmit" > -->
     <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
