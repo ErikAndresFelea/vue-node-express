@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-// const cors = require('cors')
+const cors = require('cors')
 const morgan = require('morgan')
 const AWS = require('aws-sdk')
 
@@ -9,7 +9,7 @@ const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(express.json());
-// app.use(cors())
+app.use(cors())
 
 // Routes
 require('./src/routes')(app)
