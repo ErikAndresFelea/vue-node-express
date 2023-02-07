@@ -51,7 +51,6 @@ export default {
         text: this.updTransc.text
       }
 
-      alert('Transcripcion modificada')
       this.$emit('upd-transc', newUpdTransc)
       this.showGet()
     },

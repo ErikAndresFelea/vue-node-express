@@ -1,7 +1,6 @@
 <template>
 <div>
-  <form @submit="onSubmit" >
-    <!-- <form @submit.prevent="onSubmit" > -->
+  <form @submit.prevent="onSubmit" >
     <h2>Añadir transcripcion</h2>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
@@ -46,7 +45,6 @@ export default {
         text: this.text
       }
 
-      alert('Transcripcion añadida')
       this.$emit('add-transc', newTransc)
       this.showGet()
     },

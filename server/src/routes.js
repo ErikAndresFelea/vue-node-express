@@ -45,7 +45,7 @@ module.exports = (app) => {
                 // Write on the json
                 fs.writeFile(databaseFile, JSON.stringify(jsonData, null, 4), err => {
                     if (err) return res.status(500).send(err)
-                    res.status(201).send('Transcripcion creada')
+                    res.status(200).send(transcription)
                 })
             }
         })

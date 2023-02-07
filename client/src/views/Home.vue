@@ -44,13 +44,13 @@ export default {
   methods: {
     // Delete a transcription
     async deleteTranscription(id) {
-      if(confirm('¿Seguro quieres borrar esta transcripicon?')) {
+      if(confirm('¿Seguro quieres borrar esta transcripcion?')) {
         const res = await fetch(`api/transcriptions/${id}`, {
         method: 'DELETE'
       })
 
       // Update the UI
-      res.status === 200 ? (this.transcs = this.transcs.filter((transc) => transc.id !== id)) : alert('Error al borrar la transcripcion')
+      res.status === 200 ? (this.transcs = this.transcs.filter((transc) => transc.id !== id), alert('Transcripcion borrada')) : alert('Error al borrar la transcripcion')
       }
     },
 
@@ -64,9 +64,9 @@ export default {
         body: JSON.stringify(transcription)
       })
 
-      // Update the UI - Not working yet
+      // Update the UI
       const data = await res.json()
-      this.transcs = [...this.transcs, data]
+      res.status === 200 ? (this.transcs = [...this.transcs, data], alert('Transcripcion añadida')) : alert('Error al añadir la transcripcion')
     },
 
     // Get the specified transcription to fill the update form
@@ -101,7 +101,8 @@ export default {
       trs.unit = transcription.unit
       trs.title = transcription.title
       trs.text = transcription.text
-      this.transcs[objIndex] = trs
+
+      res.status === 200 ? (this.transcs[objIndex] = trs, alert('Transcripcion modificada')) : alert('Error al modificar la transcripcion')
     },
 
     // Display the different components of the UI
