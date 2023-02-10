@@ -1,6 +1,5 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const path = require('path')
 const cors = require('cors')
 const morgan = require('morgan')
 const AWS = require('aws-sdk')
@@ -11,9 +10,50 @@ app.use(bodyParser.json())
 app.use(express.json());
 app.use(cors())
 
+// Access AWS
+const dynamodb = new AWS.DynamoDB({ 
+    region: 'eu-central-1',
+    endpoint: 'https://dynamodb.eu-central-1.amazonaws.com',
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+})
+
+const name = 'semanticbots-db'
+dynamodb.describeTable({ TableName: name }, (err, data) => {
+    if (err) createTable(name)
+    else if(data.Table.TableStatus === 'ACTIVE') console.log('Tabla existe')
+})
+
+// DynamoDb table
+function createTable(tName) {
+    const params = {
+        TableName: tName,
+        KeySchema: [
+            { AttributeName: 'id', KeyType: 'HASH' },
+            { AttributeName: 'version', KeyType: 'RANGE' }
+        ],
+        AttributeDefinitions: [
+            { AttributeName: 'id', AttributeType: 'N' },
+            { AttributeName: 'version', AttributeType: 'N' }
+        ],
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 10,
+            WriteCapacityUnits: 10
+        }
+    }
+    
+    dynamodb.createTable(params, (err, data) => {
+        if (err) console.log('Tabla no creada: ', err.message)
+        else {
+            console.log('Tabla creada')
+        }
+    })
+}
+
 // Routes
 require('./src/routes')(app)
 
+/*
 // Amazon S3 conection
 const s3 = new AWS.S3({
     region: 'eu-central-1',
@@ -72,6 +112,7 @@ s3.headBucket({ Bucket: bucketName }, (err) => {
     } // s3.heabucket error = 404
     else console.log('Dont have permission')
 })
+*/
 
 app.set('port', process.env.PORT || 8081);
 

@@ -1,58 +1,63 @@
 const fs = require('fs')
+const AWS = require('aws-sdk')
 
 module.exports = (app) => {
-    databaseFile = 'C:/Users/Argnos/Desktop/db-pruebas.json'
+    const dynamodb = new AWS.DynamoDB.DocumentClient({ 
+        region: 'eu-central-1',
+        endpoint: 'https://dynamodb.eu-central-1.amazonaws.com',
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    })
+    const tableName = 'semanticbots-db'
 
-    // Obtain the transcriptions
+    // GET all transcriptions
     app.get('/transcriptions', (req, res) => {
-        fs.readFile(databaseFile, 'utf8', (err, data) => {
-            if (err) res.status(500).send({ error: err })
-            else res.send(JSON.parse(data))
+        dynamodb.scan({ TableName: tableName }, (error, result) => {
+            if (error) res.status(500).json({ error })
+            else res.json(result.Items)
         })
     })
 
-    // Obtain a specific transcription
+    // GET a specific transcription **
     app.get('/transcriptions/:id', (req, res) => {
         const id = parseInt(req.params.id)
 
-        fs.readFile(databaseFile, 'utf8', (err, data) => {
-            if (err) res.status(500).send({ error: err })
-            else {
-                // Obtain the specific object
-                const jsonData = JSON.parse(data)
-                const transc = jsonData.find(t => t.id === id)
-
-                if (!transc) res.status(404).send({ message: 'Transcripcion no encontrada' })
-                else res.send(transc)
+        const params = {
+            TableName: tableName,
+            Key: {
+                "id": id,
+                "version": 1
             }
+        }
+        dynamodb.get(params, (error, result) => {
+            if (error) res.status(500).json({ error })
+            else res.json(result.Items)
         })
     })
 
-    // Add a transcription
+    // POST a transcription
     app.post('/transcriptions', (req, res) => {
-        fs.readFile(databaseFile, 'utf8', (err, data) => {
-            if (err) return res.status(500).send(err)
-
-            else {
-                // Obtain max id from json
-                const jsonData = JSON.parse(data)
-                const maxId = jsonData.reduce((max, t) => Math.max(max, t.id), 0)
-                
-                // Add the transcription to the json array
-                const transcription = { id: maxId + 1, ...req.body }
-                jsonData.push(transcription)
-                
-                // Write on the json
-                fs.writeFile(databaseFile, JSON.stringify(jsonData, null, 4), err => {
-                    if (err) return res.status(500).send(err)
-                    res.status(200).send(transcription)
-                })
+        const params = {
+            TableName: tableName,
+            Item: {
+                "id": req.body.id,
+                "version": req.body.version,
+                "block": req.body.block,
+                "unit": req.body.unit,
+                "title": req.body.title,
+                "text": req.body.text
             }
+        }
+    
+        dynamodb.put(params, (error, result) => {
+            if (error) res.status(500).json({ error })
+            else res.status(200).send({ message: 'Transcripcion añadida' })
         })
     })
 
-    // Update a transcription
+    // PUT a transcription **
     app.put('/transcriptions/:id', (req, res) => {
+        /*
         const id = parseInt(req.params.id)
         const body = req.body
 
@@ -76,10 +81,12 @@ module.exports = (app) => {
                 }
             }
         })
+        */
     })
 
-    // Delete a transcription
+    // DELETE a transcription **
     app.delete('/transcriptions/:id', (req, res) => {
+        /*
         const id = parseInt(req.params.id)
 
         fs.readFile(databaseFile, (err, data) => {
@@ -102,5 +109,6 @@ module.exports = (app) => {
                 }
             }
         })
+        */
     })
 }
