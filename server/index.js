@@ -37,8 +37,8 @@ function createTable(tName) {
             { AttributeName: 'version', AttributeType: 'N' }
         ],
         ProvisionedThroughput: {
-            ReadCapacityUnits: 10,
-            WriteCapacityUnits: 10
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5
         }
     }
     
@@ -114,6 +114,7 @@ s3.headBucket({ Bucket: bucketName }, (err) => {
 })
 */
 
+// Set server
 app.set('port', process.env.PORT || 8081);
 
 app.listen(app.get('port'), () => {
