@@ -43,13 +43,11 @@ export default {
 
   methods: {
     // Delete a transcription
-    async deleteTranscription(id) {
+    async deleteTranscription(id, version) {
       if(confirm('¿Seguro quieres borrar esta transcripcion?')) {
-        const res = await fetch(`api/transcriptions/${id}`, {
+        const res = await fetch(`api/transcriptions/${id}/${version}`, {
         method: 'DELETE'
       })
-
-      // Update the UI
       res.status === 200 ? (this.transcs = this.transcs.filter((transc) => transc.id !== id), alert('Transcripcion borrada')) : alert('Error al borrar la transcripcion')
       }
     },
@@ -63,46 +61,29 @@ export default {
         },
         body: JSON.stringify(transcription)
       })
-
-      // Update the UI
       const data = await res.json()
       res.status === 200 ? (this.transcs = [...this.transcs, data], alert('Transcripcion añadida')) : alert('Error al añadir la transcripcion')
     },
 
     // Get the specified transcription to fill the update form
-    async updateTranscriptionView(id) {
+    async updateTranscriptionView(id, version) {
       this.toggleShow(false, true, false)
-      const transcription = await this.fetchTranscription(id)
-      this.updTransc = {
-        id: transcription.id,
-        block: transcription.block,
-        elective: transcription.elective,
-        unit: transcription.unit,
-        title: transcription.title,
-        text: transcription.text
-      }
+      const transcription = await this.fetchTranscription(id, version)
+      this.updTransc = transcription
     },
 
     // Update the transcription
     async updateTranscription(transcription) {
-      const res = await fetch(`api/transcriptions/${transcription.id}`, {
+      const res = await fetch(`api/transcriptions/${transcription.id}/${transcription.version}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
         },
         body: JSON.stringify(transcription)
       })
-
-      // Update the UI
-      const objIndex = this.transcs.findIndex((obj) => obj.id == transcription.id)
-      const trs = this.transcs[objIndex]
-      trs.block = transcription.block
-      trs.elective = transcription.elective
-      trs.unit = transcription.unit
-      trs.title = transcription.title
-      trs.text = transcription.text
-
-      res.status === 200 ? (this.transcs[objIndex] = trs, alert('Transcripcion modificada')) : alert('Error al modificar la transcripcion')
+      
+      const data = await res.json()
+      res.status === 200 ? (this.transcs = [...this.transcs, data], alert('Transcripcion modificada')) : alert('Error al modificar la transcripcion')
     },
 
     // Display the different components of the UI
@@ -120,8 +101,8 @@ export default {
     },
 
     // Get a specific transcription
-    async fetchTranscription(id) {
-      const res = await fetch(`api/transcriptions/${id}`)
+    async fetchTranscription(id, version) {
+      const res = await fetch(`api/transcriptions/${id}/${version}`)
       const data = await res.json()
       return data
     }

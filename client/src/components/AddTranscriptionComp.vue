@@ -6,9 +6,6 @@
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
     </div>
     <div>
-      <input placeholder="Electiva" id="elective" v-model="elective" type="text">
-    </div>
-    <div>
       <input placeholder="Capitulo" id="unit" v-model="unit" type="text" required>
     </div>
     <div>
@@ -38,8 +35,8 @@ export default {
   methods: {
     onSubmit() {
       const newTransc = {
+        version: 1,
         block: this.block,
-        elective: this.elective,
         unit: this.unit,
         title: this.title,
         text: this.text
@@ -56,7 +53,6 @@ export default {
 
     reset() {
       this.block = '',
-      this.elective = '',
       this.unit = '',
       this.title = '',
       this.text = ''
@@ -66,7 +62,6 @@ export default {
   data () {
     return {
       block: '',
-      elective: '',
       unit: '',
       title: '',
       text: ''

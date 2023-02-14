@@ -1,4 +1,4 @@
-const fs = require('fs')
+const uuid = require('uuid')
 const AWS = require('aws-sdk')
 
 module.exports = (app) => {
@@ -19,28 +19,30 @@ module.exports = (app) => {
     })
 
     // GET a specific transcription
-    app.get('/transcriptions/:id', (req, res) => {
-        const id = parseInt(req.params.id)
+    app.get('/transcriptions/:id/:version', (req, res) => {
+        const id = req.params.id
+        const version = parseInt(req.params.version)
 
         const params = {
             TableName: tableName,
-            KeyConditionExpression: 'id = :id',
-            ExpressionAttributeValues: {
-                ':id': id
+            Key: {
+                'id': id,
+                'version': version
             }
         }
-        dynamodb.query(params, (error, result) => {
+        dynamodb.get(params, (error, result) => {
             if (error) res.status(500).json({ error })
-            else res.json(result.Items)
+            else res.json(result.Item)
         })
     })
 
     // POST a transcription
     app.post('/transcriptions', (req, res) => {
+        const id = uuid.v4()
         const params = {
             TableName: tableName,
             Item: {
-                "id": req.body.id,
+                "id": id,
                 "version": req.body.version,
                 "block": req.body.block,
                 "unit": req.body.unit,
@@ -51,13 +53,13 @@ module.exports = (app) => {
     
         dynamodb.put(params, (error, result) => {
             if (error) res.status(500).json({ error })
-            else res.status(200).send({ message: 'Transcripcion añadida' })
+            else res.status(200).send(params.Item)
         })
     })
 
     // PUT a transcription
     app.put('/transcriptions/:id/:version', (req, res) => {
-        const id = parseInt(req.params.id)
+        const id = req.params.id
         const version = parseInt(req.params.version)
 
         const params = {
@@ -74,7 +76,7 @@ module.exports = (app) => {
 
         dynamodb.put(params, (error, result) => {
             if (error) res.status(500).json({ error })
-            else res.status(200).send({ message: 'Transcripcion modificada' })
+            else res.status(200).send(params.Item)
         })
        /*
         const id = parseInt(req.params.id)
@@ -113,7 +115,7 @@ module.exports = (app) => {
 
     // DELETE a transcription
     app.delete('/transcriptions/:id/:version', (req, res) => {
-        const id = parseInt(req.params.id)
+        const id = req.params.id
         const version = parseInt(req.params.version)
 
         const params = {

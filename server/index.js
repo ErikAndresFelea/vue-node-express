@@ -33,7 +33,7 @@ function createTable(tName) {
             { AttributeName: 'version', KeyType: 'RANGE' }
         ],
         AttributeDefinitions: [
-            { AttributeName: 'id', AttributeType: 'N' },
+            { AttributeName: 'id', AttributeType: 'S' },
             { AttributeName: 'version', AttributeType: 'N' }
         ],
         ProvisionedThroughput: {
