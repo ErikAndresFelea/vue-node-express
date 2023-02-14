@@ -10,7 +10,7 @@
   </td>
   <td>
     <ButtonComp @btn-click="$emit('show-update', transc.id, transc.version)" class="update-button" :text="'Modificar'" />
-    <ButtonComp @btn-click="$emit('delete-transc', transc.id, transc.version)" class="cancel-button" :text="'Borrar'" />
+    <ButtonComp @btn-click="$emit('delete-transc', transc.id)" class="cancel-button" :text="'Borrar'" />
   </td>
 </template>
 

@@ -30,6 +30,7 @@ module.exports = (app) => {
                 'version': version
             }
         }
+        
         dynamodb.get(params, (error, result) => {
             if (error) res.status(500).json({ error })
             else res.json(result.Item)
@@ -44,6 +45,7 @@ module.exports = (app) => {
             Item: {
                 "id": id,
                 "version": req.body.version,
+                "latest": req.body.latest,
                 "block": req.body.block,
                 "unit": req.body.unit,
                 "title": req.body.title,
@@ -67,6 +69,7 @@ module.exports = (app) => {
             Item: {
                 "id": id,
                 "version": version,
+                "latest": req.body.latest,
                 "block": req.body.block,
                 "unit": req.body.unit,
                 "title": req.body.title,
@@ -113,7 +116,7 @@ module.exports = (app) => {
         */
     })
 
-    // DELETE a transcription
+    // DELETE one transcription
     app.delete('/transcriptions/:id/:version', (req, res) => {
         const id = req.params.id
         const version = parseInt(req.params.version)
@@ -130,5 +133,38 @@ module.exports = (app) => {
             if (error) res.status(500).json({ error })
             else res.status(200).send({ message: 'Transcripcion borrada' })
         })
+    })
+    
+    // DELETE all transcriptions with same id
+    app.delete('/transcriptions/:id', (req, res) => {
+        const id = req.params.id
+
+        const paramsQuerry = {
+            TableName: tableName,
+            KeyConditionExpression: 'id = :id',
+            ExpressionAttributeValues: { ':id': id }
+        }
+
+        dynamodb.query(paramsQuerry, function(error, result) {
+            if (error) res.status(500).json({ error })
+            else {
+                const data = result.Items
+                for (let i = 0; i < data.length; i++) {
+                    const paramsDelete = {
+                        TableName: tableName,
+                        Key: {
+                            'id': data[i].id,
+                            'version': data[i].version
+                        },
+                    }
+        
+                    dynamodb.delete(paramsDelete, (error, result) => {
+                        if (error) res.status(500).json({ error })
+                    })
+                }
+            }
+        })
+
+        res.status(200).send({ message: 'Transcripciones borradas' })
     })
 }

@@ -15,7 +15,9 @@
           </th>
         </tr>
         <tr :key="transc.id" v-for="transc in transcs">
-          <TranscriptionComp @show-update="$emit('show-update', transc.id, transc.version)" @delete-transc="$emit('delete-transc', transc.id, transc.version)" :transc="transc" />
+          <template v-if="transc.latest">
+            <TranscriptionComp @show-update="$emit('show-update', transc.id, transc.version)" @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
+          </template>
         </tr>
       </tbody>
   </table>

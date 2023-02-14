@@ -36,6 +36,7 @@ export default {
     onSubmit() {
       const newTransc = {
         version: 1,
+        latest: true,
         block: this.block,
         unit: this.unit,
         title: this.title,

@@ -37,8 +37,8 @@ function createTable(tName) {
             { AttributeName: 'version', AttributeType: 'N' }
         ],
         ProvisionedThroughput: {
-            ReadCapacityUnits: 5,
-            WriteCapacityUnits: 5
+            ReadCapacityUnits: 15,
+            WriteCapacityUnits: 2
         }
     }
     

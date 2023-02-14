@@ -34,7 +34,7 @@ export default {
   },
 
   props: {
-    updTransc: Object 
+    updTransc: Object
   },
 
   methods: {
@@ -42,6 +42,7 @@ export default {
       const newUpdTransc = {
         id: this.updTransc.id,
         version: this.updTransc.version,
+        latest: true,
         block: this.updTransc.block,
         unit: this.updTransc.unit,
         title: this.updTransc.title,

@@ -18,7 +18,7 @@
     <AllTranscriptionsComp 
       @show-update="updateTranscriptionView" 
       @show-add="toggleShow(true, false, false)" 
-      @delete-transc="deleteTranscription" 
+      @delete-transc="deleteAllTranscriptions" 
       :transcs="transcs"  
       v-show="showGet"
     />
@@ -43,13 +43,38 @@ export default {
 
   methods: {
     // Delete a transcription
-    async deleteTranscription(id, version) {
-      if(confirm('¿Seguro quieres borrar esta transcripcion?')) {
+    async deleteTranscription(id, version, latest) {
+      if(confirm('¿Seguro quieres borrar esta VERSION de la transcripcion?')) {
+        if (latest && version !== 1) {
+          const oldTranscription = await this.fetchTranscription(id, version - 1)
+          oldTranscription.latest = true
+          const resOld = await fetch(`api/transcriptions/${oldTranscription.id}/${oldTranscription.version}`, {
+            method: 'PUT',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(oldTranscription)
+          })
+          if (resOld.status !== 200) alert('ERROR al modificar la transcripcion')
+        }
+
         const res = await fetch(`api/transcriptions/${id}/${version}`, {
-        method: 'DELETE'
-      })
-      res.status === 200 ? (this.transcs = this.transcs.filter((transc) => transc.id !== id), alert('Transcripcion borrada')) : alert('Error al borrar la transcripcion')
+          method: 'DELETE'
+        })
+        res.status === 200 ? alert('Transcripcion borrada') : alert('ERROR al borrar la transcripcion')
       }
+      this.transcs = await this.fetchTranscriptions()
+    },
+
+    // Delete all transcriptions with same id
+    async deleteAllTranscriptions(id) {
+      if(confirm('¿Seguro quieres borrar ---TODAS--- las transcripciones?')) {
+        const res = await fetch(`api/transcriptions/${id}`, {
+          method: 'DELETE'
+        })
+        res.status === 200 ? alert('Transcripciones borradas') : alert('ERROR al borrar las transcripciones')
+      }
+      this.transcs = await this.fetchTranscriptions()
     },
 
     // Add a trancription
@@ -61,8 +86,8 @@ export default {
         },
         body: JSON.stringify(transcription)
       })
-      const data = await res.json()
-      res.status === 200 ? (this.transcs = [...this.transcs, data], alert('Transcripcion añadida')) : alert('Error al añadir la transcripcion')
+      res.status === 200 ? alert('Transcripcion añadida') : alert('ERROR al añadir la transcripcion')
+      this.transcs = await this.fetchTranscriptions()
     },
 
     // Get the specified transcription to fill the update form
@@ -73,17 +98,30 @@ export default {
     },
 
     // Update the transcription
-    async updateTranscription(transcription) {
-      const res = await fetch(`api/transcriptions/${transcription.id}/${transcription.version}`, {
+    async updateTranscription(newTranscription) {
+      // Old transcription
+      const oldTranscription = await this.fetchTranscription(newTranscription.id, newTranscription.version)
+      oldTranscription.latest = false
+      const resOld = await fetch(`api/transcriptions/${oldTranscription.id}/${oldTranscription.version}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify(transcription)
+        body: JSON.stringify(oldTranscription)
       })
-      
-      const data = await res.json()
-      res.status === 200 ? (this.transcs = [...this.transcs, data], alert('Transcripcion modificada')) : alert('Error al modificar la transcripcion')
+      if (resOld.status !== 200) alert('ERROR al modificar la transcripcion')
+
+      // New transcription
+      const newVersion = newTranscription.version + 1
+      const resNew = await fetch(`api/transcriptions/${newTranscription.id}/${newVersion}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(newTranscription)
+      })
+      resNew.status === 200 ? alert('Transcripcion modificada') : alert('ERROR al modificar la transcripcion')
+      this.transcs = await this.fetchTranscriptions()
     },
 
     // Display the different components of the UI
@@ -118,7 +156,8 @@ export default {
       showAdd: false,
       showUpdate: false,
       showGet: true,
-      updTransc: {}
+      updTransc: {},
+      oldTransc: {}
     }
   },
 
