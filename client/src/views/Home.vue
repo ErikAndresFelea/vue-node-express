@@ -11,6 +11,7 @@
       @show-get-u="toggleShow(false, false, true)" 
       @upd-transc="updateTranscription"
       :updTransc="updTransc"
+      :versions="versions"
       v-show="showUpdate"
     />
   </div>
@@ -95,6 +96,8 @@ export default {
       this.toggleShow(false, true, false)
       const transcription = await this.fetchTranscription(id, version)
       this.updTransc = transcription
+      this.versions = this.transcs.filter((transc) => transc.id === id)
+      this.versions.reverse()
     },
 
     // Update the transcription
@@ -153,6 +156,7 @@ export default {
   data () {
     return {
       transcs: [],
+      versions: [],
       showAdd: false,
       showUpdate: false,
       showGet: true,

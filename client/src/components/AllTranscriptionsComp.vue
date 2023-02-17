@@ -20,7 +20,7 @@
           </template>
         </tr>
       </tbody>
-  </table>
+    </table>
   <div>
     <ButtonComp @btn-click="$emit('show-add')" class="confirm-button" :text="'Añadir transcripcion'" />
   </div>
