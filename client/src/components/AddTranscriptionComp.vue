@@ -2,6 +2,7 @@
 <div>
   <form @submit.prevent="onSubmit" >
     <h2>Añadir transcripcion</h2>
+    <h5>Esto puede tardar varios minutos</h5>
     <div>
       <input placeholder="Bloque" id="block" v-model="block" type="text" required>
     </div>

@@ -1,14 +1,22 @@
 <template>
   <div>
     <AddTranscriptionComp 
-      @show-get-a="toggleShow(false, false, true)" 
+      @show-get-a="toggleShow(false, false, false, true)" 
       @add-transc="addTranscription" 
       v-show="showAdd"
     />
   </div>
   <div>
+    <AutomaticTranscripctionComp 
+      @show-get-auto="toggleShow(true, false, false, false)" 
+      @show-get-home="toggleShow(false, false, false, true)" 
+      @auto-transc="transcribe" 
+      v-show="showAuto"
+    />
+  </div>
+  <div>
     <UpdateTranscriptionComp 
-      @show-get-u="toggleShow(false, false, true)" 
+      @show-get-u="toggleShow(false, false, false, true)" 
       @upd-transc="updateTranscription"
       :updTransc="updTransc"
       :versions="versions"
@@ -18,7 +26,7 @@
   <div>
     <AllTranscriptionsComp 
       @show-update="updateTranscriptionView" 
-      @show-add="toggleShow(true, false, false)" 
+      @show-add="toggleShow(false, true, false, false)" 
       @delete-transc="deleteAllTranscriptions" 
       :transcs="transcs"  
       v-show="showGet"
@@ -27,7 +35,7 @@
 </template>
 
 <script>
-import ButtonComp from '../components/ButtonComp.vue'
+import AutomaticTranscripctionComp from '../components/AutomaticTranscripctionComp.vue'
 import AllTranscriptionsComp from '../components/AllTranscriptionsComp.vue'
 import AddTranscriptionComp from '../components/AddTranscriptionComp.vue'
 import UpdateTranscriptionComp from '../components/UpdateTranscriptionComp.vue'
@@ -36,7 +44,7 @@ export default {
   name: 'Home',
   
   components: {
-    ButtonComp,
+    AutomaticTranscripctionComp,
     AllTranscriptionsComp,
     AddTranscriptionComp,
     UpdateTranscriptionComp
@@ -93,7 +101,7 @@ export default {
 
     // Get the specified transcription to fill the update form
     async updateTranscriptionView(id, version) {
-      this.toggleShow(false, true, false)
+      this.toggleShow(false, false, true, false)
       const transcription = await this.fetchTranscription(id, version)
       this.updTransc = transcription
       this.versions = this.transcs.filter((transc) => transc.id === id)
@@ -127,9 +135,25 @@ export default {
       this.transcs = await this.fetchTranscriptions()
     },
 
+    // Colab - Wisper service
+    async transcribe(public_url, audio_path) {
+      const req = new XMLHttpRequest()
+      const url = public_url + '/transcribe' + audio_path.replace(/ /g, '%20')
+      console.log(url)
+
+      req.open('GET', url)
+      req.onload = () => {
+        if (req.status === 200) {
+          const response = req.responseText
+          console.log(response)
+        } else console.log("Fail" + req.status)
+      }
+    },
+
     // Display the different components of the UI
-    toggleShow(add, update, get) {
+    toggleShow(add, auto, update, get) {
       this.showAdd = add,
+      this.showAuto = auto,
       this.showUpdate = update,
       this.showGet = get
     },
@@ -150,7 +174,7 @@ export default {
   },
   
   emits: [
-    'delete-transc', 'show-get-a', 'show-get-u', 'show-add', 'show-update', 'upd-transc'
+    'delete-transc', 'show-get-a', 'show-get-u', 'show-add', 'show-update', 'upd-transc', 'show-get-auto', 'show-get-home'
   ],
 
   data () {
@@ -158,6 +182,7 @@ export default {
       transcs: [],
       versions: [],
       showAdd: false,
+      showAuto: false,
       showUpdate: false,
       showGet: true,
       updTransc: {},
