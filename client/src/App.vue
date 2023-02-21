@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import NavbarComp from './components/NavbarComp.vue'
+import NavbarComp from "./components/NavbarComp.vue";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    NavbarComp
-  }
-}
+    NavbarComp,
+  },
+};
 </script>
 
 <style src="@/assets/style.css"></style>

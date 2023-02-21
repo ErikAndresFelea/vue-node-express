@@ -4,9 +4,9 @@
 
 <script>
 export default {
-  name: 'ButtonComp',
+  name: "ButtonComp",
   props: {
-    text: String
-  }
-}
+    text: String,
+  },
+};
 </script>

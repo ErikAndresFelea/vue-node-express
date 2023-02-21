@@ -6,27 +6,33 @@
     <h3>{{ version.title }}</h3>
   </td>
   <td>
-    <ButtonComp @btn-click="$emit('show-version', version)" class="update-button" :text="'Ver'" />
-    <ButtonComp @btn-click="$emit('reset-version', version)" class="cancel-button" :text="'Restaurar'" />
+    <ButtonComp
+      @btn-click="$emit('show-version', version)"
+      class="update-button"
+      :text="'Ver'"
+    />
+    <ButtonComp
+      @btn-click="$emit('reset-version', version)"
+      class="cancel-button"
+      :text="'Restaurar'"
+    />
   </td>
 </template>
 
 <script>
-import ButtonComp from './ButtonComp.vue'
+import ButtonComp from "./ButtonComp.vue";
 
 export default {
-  name: 'VersionTableItemComp',
+  name: "VersionTableItemComp",
 
   props: {
-    version: Object
+    version: Object,
   },
 
-  emits: [
-    'reset-version', 'show-version'
-  ],
+  emits: ["reset-version", "show-version"],
 
   components: {
-    ButtonComp
-  }
-}
+    ButtonComp,
+  },
+};
 </script>

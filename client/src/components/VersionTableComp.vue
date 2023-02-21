@@ -1,29 +1,31 @@
 <template>
   <table>
     <tr :key="version.version" v-for="version in versions">
-      <VersionTableItemComp @reset-version="$emit('reset-version', version)" @show-version="$emit('show-version', version)" :version="version" />
+      <VersionTableItemComp
+        @reset-version="$emit('reset-version', version)"
+        @show-version="$emit('show-version', version)"
+        :version="version"
+      />
     </tr>
   </table>
 </template>
 
 <script>
-import VersionTableItemComp from './VersionTableItemComp.vue'
+import VersionTableItemComp from "./VersionTableItemComp.vue";
 
 export default {
-  name: 'VersionTableComp',
+  name: "VersionTableComp",
 
   props: {
-    versions: Array
+    versions: Array,
   },
 
-  emits: [
-    'reset-version', 'show-version'
-  ],
+  emits: ["reset-version", "show-version"],
 
   components: {
-    VersionTableItemComp
-  }
-}
+    VersionTableItemComp,
+  },
+};
 </script>
 
 <style scoped>

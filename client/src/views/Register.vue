@@ -3,16 +3,38 @@
     <h2>Formulario de registro</h2>
     <form @submit.prevent="register">
       <div class="form-group">
-        <input placeholder="Elige tu nombre de usuario" id="username" v-model="username" type="text" required>
+        <input
+          placeholder="Elige tu nombre de usuario"
+          id="username"
+          v-model="username"
+          type="text"
+          required
+        />
       </div>
       <div class="form-group">
-        <input placeholder="Escoge una contraseña" id="password" v-model="password" type="password" required>
+        <input
+          placeholder="Escoge una contraseña"
+          id="password"
+          v-model="password"
+          type="password"
+          required
+        />
       </div>
       <div class="form-group">
-        <input placeholder="Repite la contraseña" id="confPassword" v-model="confPassword" type="password" required>
+        <input
+          placeholder="Repite la contraseña"
+          id="confPassword"
+          v-model="confPassword"
+          type="password"
+          required
+        />
       </div>
       <div class="form-group">
-        <ButtonComp class="confirm-button" @click="register" :text="'Registrarse'" />
+        <ButtonComp
+          class="confirm-button"
+          @click="register"
+          :text="'Registrarse'"
+        />
         <router-link to="/">
           <ButtonComp class="cancel-button" :text="'Cancelar'" />
         </router-link>
@@ -22,21 +44,21 @@
 </template>
 
 <script>
-import ButtonComp from '../components/ButtonComp.vue'
+import ButtonComp from "../components/ButtonComp.vue";
 
 export default {
-  name: 'Register',
-  
+  name: "Register",
+
   components: {
-    ButtonComp
+    ButtonComp,
   },
 
-  data () {
+  data() {
     return {
-      username: '',
-      password: '',
-      confPassword: ''
-    }
+      username: "",
+      password: "",
+      confPassword: "",
+    };
   },
-}
+};
 </script>

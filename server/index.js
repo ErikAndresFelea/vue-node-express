@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors())
 
 // Access AWS
-const dynamodb = new AWS.DynamoDB({ 
+const dynamodb = new AWS.DynamoDB({
     region: 'eu-central-1',
     endpoint: 'https://dynamodb.eu-central-1.amazonaws.com',
     accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -21,7 +21,7 @@ const dynamodb = new AWS.DynamoDB({
 const name = 'semanticbots-db'
 dynamodb.describeTable({ TableName: name }, (err, data) => {
     if (err) createTable(name)
-    else if(data.Table.TableStatus === 'ACTIVE') console.log('Tabla existe')
+    else if (data.Table.TableStatus === 'ACTIVE') console.log('Tabla existe')
 })
 
 // DynamoDb table
@@ -41,7 +41,7 @@ function createTable(tName) {
             WriteCapacityUnits: 2
         }
     }
-    
+
     dynamodb.createTable(params, (err, data) => {
         if (err) console.log('Tabla no creada: ', err.message)
         else {

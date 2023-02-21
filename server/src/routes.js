@@ -3,7 +3,7 @@ const AWS = require('aws-sdk')
 const fs = require('fs')
 
 module.exports = (app) => {
-    const dynamodb = new AWS.DynamoDB.DocumentClient({ 
+    const dynamodb = new AWS.DynamoDB.DocumentClient({
         region: 'eu-central-1',
         endpoint: 'https://dynamodb.eu-central-1.amazonaws.com',
         accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -31,7 +31,7 @@ module.exports = (app) => {
                 'version': version
             }
         }
-        
+
         dynamodb.get(params, (error, result) => {
             if (error) res.status(500).json({ error })
             else res.json(result.Item)
@@ -53,7 +53,7 @@ module.exports = (app) => {
                 "text": req.body.text
             }
         }
-    
+
         dynamodb.put(params, (error, result) => {
             if (error) res.status(500).json({ error })
             else res.status(200).send(params.Item)
@@ -116,7 +116,7 @@ module.exports = (app) => {
             ExpressionAttributeValues: { ':id': id }
         }
 
-        dynamodb.query(paramsQuerry, function(error, result) {
+        dynamodb.query(paramsQuerry, function (error, result) {
             if (error) res.status(500).json({ error })
             else {
                 const data = result.Items
@@ -128,7 +128,7 @@ module.exports = (app) => {
                             'version': data[i].version
                         },
                     }
-        
+
                     dynamodb.delete(paramsDelete, (error, result) => {
                         if (error) res.status(500).json({ error })
                     })
@@ -138,7 +138,7 @@ module.exports = (app) => {
 
         res.status(200).send({ message: 'Transcripciones borradas' })
     })
-    
+
     // DELETE all transcriptions with same id
     app.delete('/transcriptions/:id', (req, res) => {
         const id = req.params.id
@@ -149,7 +149,7 @@ module.exports = (app) => {
             ExpressionAttributeValues: { ':id': id }
         }
 
-        dynamodb.query(paramsQuerry, function(error, result) {
+        dynamodb.query(paramsQuerry, function (error, result) {
             if (error) res.status(500).json({ error })
             else {
                 const data = result.Items
@@ -161,7 +161,7 @@ module.exports = (app) => {
                             'version': data[i].version
                         },
                     }
-        
+
                     dynamodb.delete(paramsDelete, (error, result) => {
                         if (error) res.status(500).json({ error })
                     })

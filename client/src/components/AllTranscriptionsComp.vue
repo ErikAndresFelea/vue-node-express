@@ -2,51 +2,49 @@
   <div>
     <h2>Transcripciones</h2>
     <table>
-      <tbody >
+      <tbody>
         <tr>
-          <th>
-            Bloque
-          </th>
-          <th>
-            Unidad
-          </th>
-          <th>
-            Titulo
-          </th>
+          <th>Bloque</th>
+          <th>Unidad</th>
+          <th>Titulo</th>
         </tr>
         <tr :key="transc.id" v-for="transc in transcs">
           <template v-if="transc.latest">
-            <TranscriptionComp @show-update="$emit('show-update', transc.id, transc.version)" @delete-transc="$emit('delete-transc', transc.id)" :transc="transc" />
+            <TranscriptionComp
+              @show-update="$emit('show-update', transc.id, transc.version)"
+              @delete-transc="$emit('delete-transc', transc.id)"
+              :transc="transc"
+            />
           </template>
         </tr>
       </tbody>
     </table>
-  <div>
-    <ButtonComp @btn-click="$emit('show-add')" class="confirm-button" :text="'Añadir transcripcion'" />
+    <div>
+      <ButtonComp
+        @btn-click="$emit('show-add')"
+        class="confirm-button"
+        :text="'Añadir transcripcion'"
+      />
+    </div>
   </div>
-  </div>
-
-
 </template>
 
 <script>
-import TranscriptionComp from './TranscriptionComp.vue'
-import ButtonComp from './ButtonComp.vue'
+import TranscriptionComp from "./TranscriptionComp.vue";
+import ButtonComp from "./ButtonComp.vue";
 
 export default {
-  name: 'AllTranscriptionsComp',
-  
+  name: "AllTranscriptionsComp",
+
   props: {
-    transcs: Array
+    transcs: Array,
   },
 
-  emits: [
-    'delete-transc', 'show-add', 'show-update'
-  ],
+  emits: ["delete-transc", "show-add", "show-update"],
 
   components: {
     TranscriptionComp,
-    ButtonComp
-  }
-}
+    ButtonComp,
+  },
+};
 </script>
