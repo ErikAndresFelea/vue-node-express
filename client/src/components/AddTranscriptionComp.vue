@@ -2,12 +2,11 @@
   <div>
     <form @submit.prevent="onSubmit">
       <h2>Añadir transcripcion</h2>
-      <h5>Esto puede tardar varios minutos</h5>
       <div>
         <input
           placeholder="Bloque"
           id="block"
-          v-model="block"
+          v-model="auto.block"
           type="text"
           required
         />
@@ -16,7 +15,7 @@
         <input
           placeholder="Capitulo"
           id="unit"
-          v-model="unit"
+          v-model="auto.unit"
           type="text"
           required
         />
@@ -25,7 +24,7 @@
         <input
           placeholder="Introduce el titulo de la trancripcion"
           id="title"
-          v-model="title"
+          v-model="auto.title"
           type="text"
           required
         />
@@ -35,7 +34,7 @@
           style="height: 40vh; resize: none"
           placeholder="Introduce el contenido de la transcripcion"
           id="text"
-          v-model="text"
+          v-model="auto.text"
           type="text"
           required
         ></textarea>
@@ -63,15 +62,19 @@ export default {
     ButtonComp,
   },
 
+  props: {
+    auto: Object,
+  },
+
   methods: {
     onSubmit() {
       const newTransc = {
         version: 1,
         latest: true,
-        block: this.block,
-        unit: this.unit,
-        title: this.title,
-        text: this.text,
+        block: this.auto.block,
+        unit: this.auto.unit,
+        title: this.auto.title,
+        text: this.auto.text,
       };
 
       this.$emit("add-transc", newTransc);

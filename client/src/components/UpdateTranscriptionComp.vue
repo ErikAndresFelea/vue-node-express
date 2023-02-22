@@ -152,10 +152,13 @@ export default {
           ? alert("Transcripcione restaurada")
           : alert("ERROR al restaurar la transcripcion");
       }
+
+      this.showVersion(resetVersion)
+      this.$emit("reset");
     },
   },
 
-  emits: ["show-get-u", "upd-transc", "reset-version", "show-version"],
+  emits: ["show-get-u", "upd-transc", "reset-version", "show-version", "reset"],
 };
 </script>
 

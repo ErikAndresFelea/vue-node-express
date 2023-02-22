@@ -3,6 +3,7 @@
     <AddTranscriptionComp
       @show-get-a="toggleShow(false, false, false, true)"
       @add-transc="addTranscription"
+      :auto="auto"
       v-show="showAdd"
     />
   </div>
@@ -17,6 +18,7 @@
   <div>
     <UpdateTranscriptionComp
       @show-get-u="toggleShow(false, false, false, true)"
+      @reset="reset"
       @upd-transc="updateTranscription"
       :updTransc="updTransc"
       :versions="versions"
@@ -163,9 +165,24 @@ export default {
     async transcribe(public_url, audio_path) {
       const url = public_url + "/transcribe" + audio_path.replace(/ /g, "%20");
 
+      const audio = audio_path.split("/");
+      this.auto.block = audio[1];
+      this.auto.unit = audio[2];
+      const title = audio[3].split(".")
+      this.auto.title = title[0]
+
       const res = await fetch(url);
-      const data = await res.json();
-      return data;
+      if (res.status === 200) {
+        alert("Transcripcion realizada");
+        const data = await res.json()
+        const text = data
+        this.auto.text = text
+        this.toggleShow(true, false, false, false);
+      } else alert("ERROR al realizar la transcripcion");
+    },
+
+    async reset() {
+      this.transcs = await this.fetchTranscriptions();
     },
 
     // Display the different components of the UI
@@ -212,6 +229,7 @@ export default {
       showGet: true,
       updTransc: {},
       oldTransc: {},
+      auto: {},
     };
   },
 

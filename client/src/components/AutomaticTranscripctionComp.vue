@@ -24,7 +24,7 @@
         <ButtonComp type="submit" class="confirm-button" :text="'Continuar'" />
         <ButtonComp
           type="reset"
-          @btn-click="showGetHome"
+          @btn-click="showGet"
           class="cancel-button"
           :text="'Cancelar'"
         />
@@ -48,15 +48,9 @@ export default {
       const public_url = this.url;
       const audio_path = this.path;
       this.$emit("auto-transc", public_url, audio_path);
-      this.showGet();
     },
 
     showGet() {
-      this.$emit("show-get-auto");
-      this.reset();
-    },
-
-    showGetHome() {
       this.$emit("show-get-home");
       this.reset();
     },
@@ -73,7 +67,7 @@ export default {
     };
   },
 
-  emits: ["auto-transc", "show-get-auto", "show-get-home"],
+  emits: ["auto-transc", "show-get-home"],
 };
 </script>
 
