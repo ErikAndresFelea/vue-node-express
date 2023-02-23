@@ -8,12 +8,12 @@
   <td>
     <ButtonComp
       @btn-click="$emit('show-version', version)"
-      class="update-button"
+      class="blue-btn"
       :text="'Ver'"
     />
     <ButtonComp
       @btn-click="$emit('reset-version', version)"
-      class="cancel-button"
+      class="red-btn"
       :text="'Restaurar'"
     />
   </td>

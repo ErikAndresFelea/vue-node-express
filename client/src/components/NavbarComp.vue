@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1>SemanticBots</h1>
-  </div>
+  <nav>
+    <div>
+      <h1>SemanticBots</h1>
+    </div>
+  </nav>
 </template>
 
 <script>

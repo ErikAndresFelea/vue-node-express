@@ -1,7 +1,9 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit">
+    <div class="d-flex justify-content-center py-3">
       <h2>Añadir transcripcion</h2>
+    </div>
+    <form @submit.prevent="onSubmit">
       <div>
         <input
           placeholder="Bloque"
@@ -40,11 +42,11 @@
         ></textarea>
       </div>
       <div>
-        <ButtonComp type="submit" class="confirm-button" :text="'Añadir'" />
+        <ButtonComp type="submit" class="green-btn" :text="'Añadir'" />
         <ButtonComp
           type="reset"
           @btn-click="showGet"
-          class="cancel-button"
+          class="red-btn"
           :text="'Cancelar'"
         />
       </div>

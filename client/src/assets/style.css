@@ -1,3 +1,4 @@
+/*
 .login-form {
   display: flex;
   flex-wrap: wrap;
@@ -74,27 +75,28 @@ button {
   color: white;
 }
 
-.confirm-button {
+.green-btn {
   background-color: #4caf4fea;
 }
 
-.confirm-button:hover {
+.green-btn:hover {
   background-color: #0b5e0e;
   box-shadow: #0b5e0e;
 }
 
-.cancel-button {
+.red-btn {
   background-color: #f44336;
 }
 
-.cancel-button:hover {
+.red-btn:hover {
   background-color: #ac0f04ec;
 }
 
-.update-button {
+.blue-btn {
   background-color: #1e60c2ec;
 }
 
-.update-button:hover {
+.blue-btn:hover {
   background-color: #0f3979ec;
 }
+*/

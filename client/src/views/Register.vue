@@ -31,12 +31,12 @@
       </div>
       <div class="form-group">
         <ButtonComp
-          class="confirm-button"
+          class="green-btn"
           @click="register"
           :text="'Registrarse'"
         />
         <router-link to="/">
-          <ButtonComp class="cancel-button" :text="'Cancelar'" />
+          <ButtonComp class="red-btn" :text="'Cancelar'" />
         </router-link>
       </div>
     </form>

@@ -1,28 +1,35 @@
 <template>
   <div>
-    <h2>Transcripciones</h2>
-    <table>
-      <tbody>
-        <tr>
-          <th>Bloque</th>
-          <th>Unidad</th>
-          <th>Titulo</th>
-        </tr>
-        <tr :key="transc.id" v-for="transc in transcs">
-          <template v-if="transc.latest">
-            <TranscriptionComp
-              @show-update="$emit('show-update', transc.id, transc.version)"
-              @delete-transc="$emit('delete-transc', transc.id)"
-              :transc="transc"
-            />
-          </template>
-        </tr>
-      </tbody>
-    </table>
-    <div>
+    <div class="d-flex justify-content-center py-3">
+      <h2>Transcripciones</h2>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-secondary">
+          <tr>
+            <th>Bloque</th>
+            <th>Unidad</th>
+            <th>Titulo</th>
+            <th style="text-align: center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :key="transc.id" v-for="transc in transcs">
+            <template v-if="transc.latest">
+              <TranscriptionComp
+                @show-update="$emit('show-update', transc.id, transc.version)"
+                @delete-transc="$emit('delete-transc', transc.id)"
+                :transc="transc"
+              />
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center pb-3">
       <ButtonComp
         @btn-click="$emit('show-add')"
-        class="confirm-button"
+        class="btn btn-sm btn-outline-success"
         :text="'Añadir transcripcion'"
       />
     </div>
@@ -48,3 +55,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+th {
+  font-size: 1.35rem;
+}
+</style>

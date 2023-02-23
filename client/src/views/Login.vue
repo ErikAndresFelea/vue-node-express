@@ -22,8 +22,7 @@
       </div>
       <div class="form-group">
         <router-link to="/home">
-          <!-- <ButtonComp @click="login" :text="'Iniciar sesion'" :color="'green'" /> -->
-          <ButtonComp class="confirm-button" :text="'Iniciar sesion'" />
+          <ButtonComp class="green-btn" :text="'Iniciar sesion'" />
         </router-link>
       </div>
       <div class="form-group" style="padding: 0px">

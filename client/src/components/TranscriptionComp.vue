@@ -1,24 +1,22 @@
 <template>
+  <td>{{ transc.block }}</td>
+  <td>{{ transc.unit }}</td>
+  <td>{{ transc.title }}</td>
   <td>
-    <h3>{{ transc.block }}</h3>
-  </td>
-  <td>
-    <h3>{{ transc.unit }}</h3>
-  </td>
-  <td>
-    <h3>{{ transc.title }}</h3>
-  </td>
-  <td>
-    <ButtonComp
-      @btn-click="$emit('show-update', transc.id, transc.version)"
-      class="update-button"
-      :text="'Modificar'"
-    />
-    <ButtonComp
-      @btn-click="$emit('delete-transc', transc.id)"
-      class="cancel-button"
-      :text="'Borrar'"
-    />
+    <div class="d-flex justify-content-evenly ">
+      <ButtonComp
+        @btn-click="$emit('show-update', transc.id, transc.version)"
+        type="button"
+        class="btn btn-sm btn-outline-primary"
+        :text="'Ver'"
+      />
+      <ButtonComp
+        @btn-click="$emit('delete-transc', transc.id)"
+        type="button"
+        class="btn btn-sm btn-outline-danger"
+        :text="'Borrar'"
+      />
+    </div>
   </td>
 </template>
 
@@ -41,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 0px;
+button {
+  width: 3.5rem;
 }
 </style>

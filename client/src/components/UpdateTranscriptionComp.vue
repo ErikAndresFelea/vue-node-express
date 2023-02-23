@@ -51,13 +51,13 @@
         <div>
           <ButtonComp
             type="submit"
-            class="confirm-button"
+            class="green-btn"
             :text="'Modificar'"
           />
           <ButtonComp
             type="reset"
             @btn-click="showGet"
-            class="cancel-button"
+            class="red-btn"
             :text="'Cancelar'"
           />
         </div>
