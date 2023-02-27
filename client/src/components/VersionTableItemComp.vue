@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex justify-content-start">
-    <div>{{ version.version }}</div>
-    <div>{{ version.title }}</div>
-    <div class="d-flex justify-content-evenly">
+  <td>{{ version.version }}</td>
+  <td>{{ version.title }}</td>
+  <td>
+    <div style="display: flex !important; justify-content: flex-end;">
       <ButtonComp
         @btn-click="$emit('show-version', version)"
         class="btn btn-sm btn-outline-primary"
@@ -14,7 +14,7 @@
         :text="'Reset'"
       />
     </div>
-  </div>
+  </td>
 </template>
 
 <script>
@@ -38,5 +38,7 @@ export default {
 <style scoped>
 button {
   width: 3.25rem;
+  margin-left: 0.3rem !important;
+  margin-right: 0.3rem !important;
 }
 </style>

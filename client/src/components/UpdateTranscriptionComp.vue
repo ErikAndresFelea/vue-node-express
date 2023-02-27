@@ -1,80 +1,112 @@
 <template>
-  <div>
-    <div class="d-flex justify-content-center py-3">
-      <h2>Modificar transcripcion</h2>
-    </div>
-
-    <div>
-      <label class="xxol">Versiones</label>
-      <div class="d-flex justify-content-center py-3">
-        <VersionTableComp
-          @reset-version="resetVersion"
-          @show-version="showVersion"
-          :versions="versions"
-        />
+  <div style="display: flex; justify-content: center">
+    <div class="d-flex flex-column justify-content-center" style="width: 50%">
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 2rem;
+        "
+      >
+        <h2>Modificar transcripcion</h2>
       </div>
-    </div>
 
-    <div class="d-flex justify-content-center">
-      <form @submit.prevent="onSubmit">
-        <div class="mb-3">
-          <label for="block" class="form-label">Bloque</label>
-          <input
-            class="form-control"
-            placeholder="Bloque"
-            id="block"
-            v-model="updTransc.block"
-            type="text"
-            required
+      <div
+        style="
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          margin-bottom: 1rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        "
+      >
+        <ButtonComp
+          class="btn btn-sm btn-outline-primary"
+          :text="'Versiones'"
+          @btn-click="toggleVersion"
+        />
+        <div style="width: 100%">
+          <VersionTableComp
+            @reset-version="resetVersion"
+            @show-version="showVersion"
+            :versions="versions"
+            v-show="dislplayVersions"
           />
         </div>
-        <div class="mb-3">
-          <label for="unit" class="form-label">Unidad</label>
-          <input
-            class="form-control"
-            placeholder="Unidad"
-            id="unit"
-            v-model="updTransc.unit"
-            type="text"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="title" class="form-label">Titulo</label>
-          <input
-            class="form-control"
-            placeholder="Introduce el titulo de la trancripcion"
-            id="title"
-            v-model="updTransc.title"
-            type="text"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="text" class="form-label">Transcripcion</label>
-          <textarea
-            class="form-control"
-            placeholder="Introduce el contenido de la transcripcion"
-            id="text"
-            v-model="updTransc.text"
-            type="text"
-            required
-          ></textarea>
-        </div>
-        <div class="d-flex justify-content-center">
-          <ButtonComp
-            type="submit"
-            class="btn btn-sm btn-outline-success"
-            :text="'Modificar'"
-          />
-          <ButtonComp
-            type="reset"
-            @btn-click="showGet"
-            class="btn btn-sm btn-outline-danger"
-            :text="'Cancelar'"
-          />
-        </div>
-      </form>
+      </div>
+
+      <div style="width: 100%; display: flex">
+        <form @submit.prevent="onSubmit" style="width: 100%">
+          <div class="mb-3">
+            <label for="block" class="form-label">Bloque</label>
+            <input
+              class="form-control"
+              placeholder="Bloque"
+              id="block"
+              v-model="updTransc.block"
+              type="text"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="unit" class="form-label">Unidad</label>
+            <input
+              class="form-control"
+              placeholder="Unidad"
+              id="unit"
+              v-model="updTransc.unit"
+              type="text"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Titulo</label>
+            <input
+              class="form-control"
+              placeholder="Introduce el titulo de la trancripcion"
+              id="title"
+              v-model="updTransc.title"
+              type="text"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="text" class="form-label">Transcripcion</label>
+            <textarea
+              class="form-control"
+              placeholder="Introduce el contenido de la transcripcion"
+              id="text"
+              v-model="updTransc.text"
+              type="text"
+              required
+            ></textarea>
+          </div>
+          <div
+            class="d-flex justify-content-center"
+            style="
+              flex-direction: row;
+              gap: 16px;
+              justify-content: center;
+              margin-bottom: 1rem;
+            "
+          >
+            <ButtonComp
+              type="submit"
+              class="btn btn-sm btn-outline-success"
+              :text="'Modificar'"
+            />
+            <ButtonComp
+              type="reset"
+              @btn-click="showGet"
+              class="btn btn-sm btn-outline-danger"
+              :text="'Cancelar'"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -119,6 +151,11 @@ export default {
 
     reset() {
       (this.block = ""), (this.unit = ""), (this.title = ""), (this.text = "");
+      this.dislplayVersions = false
+    },
+
+    toggleVersion() {
+      this.dislplayVersions = !this.dislplayVersions;
     },
 
     async showVersion(showVersion) {
@@ -172,24 +209,22 @@ export default {
   },
 
   emits: ["show-get-u", "upd-transc", "reset-version", "show-version", "reset"],
+
+  data() {
+    return {
+      dislplayVersions: false,
+    };
+  },
 };
 </script>
 
 <style scoped>
+button {
+  min-width: 5rem;
+}
+
 label {
   font-weight: bold;
-}
-
-form, .xxol {
-  max-width: 45rem;
-  min-width: 50%;
-}
-
-button {
-  width: 5rem;
-  margin-left: 1rem !important;
-  margin-right: 1rem !important;
-  margin-bottom: 1rem !important;
 }
 
 textarea {

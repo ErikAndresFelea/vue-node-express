@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding-left: 3.5rem; padding-right: 3.5rem">
     <div class="d-flex justify-content-center py-3">
       <h2>Transcripciones</h2>
     </div>
@@ -26,7 +26,7 @@
         </tbody>
       </table>
     </div>
-    <div class="d-flex justify-content-center pb-3">
+    <div class="d-flex justify-content-center pb-3" style="gap: 1rem;">
       <ButtonComp
         @btn-click="$emit('show-add')"
         class="btn btn-sm btn-outline-success"

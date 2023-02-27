@@ -1,13 +1,22 @@
 <template>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" :key="version.version" v-for="version in versions">
-      <VersionTableItemComp
-        @reset-version="$emit('reset-version', version)"
-        @show-version="$emit('show-version', version)"
-        :version="version"
-      />
-    </li>
-  </ul>
+  <table class="table table-hover align-middle">
+    <thead class="table-secondary">
+      <tr>
+        <th>Version</th>
+        <th>Titulo</th>
+        <th style="text-align: end; padding-right: 2.3rem">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr :key="version.version" v-for="version in versions">
+        <VersionTableItemComp
+          @reset-version="$emit('reset-version', version)"
+          @show-version="$emit('show-version', version)"
+          :version="version"
+        />
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -27,10 +36,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-ul {
-  max-width: 45rem;
-  min-width: 50%;
-}
-</style>
