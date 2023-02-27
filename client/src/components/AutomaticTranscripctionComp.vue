@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center py-3">
       <h2>Añadir transcripcion</h2>
     </div>
-    <div  class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       <form @submit.prevent="onSubmit">
         <div class="mb-3">
           <label for="url" class="form-label">URL Publica</label>
@@ -95,5 +95,11 @@ label {
 form {
   max-width: 45rem;
   min-width: 50%;
+}
+
+button {
+  width: 5rem;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
 }
 </style>

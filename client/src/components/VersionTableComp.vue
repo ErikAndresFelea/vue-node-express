@@ -1,13 +1,13 @@
 <template>
-  <table>
-    <tr :key="version.version" v-for="version in versions">
+  <ul>
+    <li :key="version.version" v-for="version in versions">
       <VersionTableItemComp
         @reset-version="$emit('reset-version', version)"
         @show-version="$emit('show-version', version)"
         :version="version"
       />
-    </tr>
-  </table>
+    </li>
+  </ul>
 </template>
 
 <script>

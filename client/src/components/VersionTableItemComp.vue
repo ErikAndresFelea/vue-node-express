@@ -1,22 +1,20 @@
 <template>
-  <td>
-    <h3>{{ version.version }}</h3>
-  </td>
-  <td>
-    <h3>{{ version.title }}</h3>
-  </td>
-  <td>
-    <ButtonComp
-      @btn-click="$emit('show-version', version)"
-      class="blue-btn"
-      :text="'Ver'"
-    />
-    <ButtonComp
-      @btn-click="$emit('reset-version', version)"
-      class="red-btn"
-      :text="'Restaurar'"
-    />
-  </td>
+  <div class="d-flex justify-content-center">
+    <h2>{{ version.version }}</h2>
+    <h2>{{ version.title }}</h2>
+    <div class="d-flex justify-content-evenly">
+      <ButtonComp
+        @btn-click="$emit('show-version', version)"
+        class="btn btn-sm btn-outline-primary"
+        :text="'Ver'"
+      />
+      <ButtonComp
+        @btn-click="$emit('reset-version', version)"
+        class="btn btn-sm btn-outline-danger"
+        :text="'Reset'"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,3 +34,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+button {
+  width: 3.25rem;
+}
+</style>

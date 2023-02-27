@@ -3,7 +3,7 @@
   <td>{{ transc.unit }}</td>
   <td>{{ transc.title }}</td>
   <td>
-    <div class="d-flex justify-content-evenly ">
+    <div class="d-flex justify-content-evenly">
       <ButtonComp
         @btn-click="$emit('show-update', transc.id, transc.version)"
         type="button"
