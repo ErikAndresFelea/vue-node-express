@@ -1,6 +1,6 @@
 <template>
-  <ul>
-    <li :key="version.version" v-for="version in versions">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" :key="version.version" v-for="version in versions">
       <VersionTableItemComp
         @reset-version="$emit('reset-version', version)"
         @show-version="$emit('show-version', version)"
@@ -29,7 +29,8 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 0px;
+ul {
+  max-width: 45rem;
+  min-width: 50%;
 }
 </style>

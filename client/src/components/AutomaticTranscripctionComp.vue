@@ -101,5 +101,6 @@ button {
   width: 5rem;
   margin-left: 1rem !important;
   margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 </style>

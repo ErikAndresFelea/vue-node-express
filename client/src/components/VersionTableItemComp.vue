@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <h2>{{ version.version }}</h2>
-    <h2>{{ version.title }}</h2>
+  <div class="d-flex justify-content-start">
+    <div>{{ version.version }}</div>
+    <div>{{ version.title }}</div>
     <div class="d-flex justify-content-evenly">
       <ButtonComp
         @btn-click="$emit('show-version', version)"

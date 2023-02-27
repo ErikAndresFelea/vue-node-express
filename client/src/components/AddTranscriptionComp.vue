@@ -133,10 +133,11 @@ button {
   width: 5rem;
   margin-left: 1rem !important;
   margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
 textarea {
-  height: 40vh; 
+  height: 40vh;
   resize: none;
   margin-bottom: 1rem;
 }

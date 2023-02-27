@@ -1,10 +1,12 @@
 <template>
   <div>
+    <div class="d-flex justify-content-center py-3">
+      <h2>Modificar transcripcion</h2>
+    </div>
+
     <div>
+      <label class="xxol">Versiones</label>
       <div class="d-flex justify-content-center py-3">
-        <h2>Versiones</h2>
-      </div>
-      <div>
         <VersionTableComp
           @reset-version="resetVersion"
           @show-version="showVersion"
@@ -13,71 +15,66 @@
       </div>
     </div>
 
-    <div>
-      <div class="d-flex justify-content-center py-3">
-        <h2>Modificar transcripcion</h2>
-      </div>
-      <div class="d-flex justify-content-center">
-        <form @submit.prevent="onSubmit">
-          <div class="mb-3">
-            <label for="block" class="form-label">Bloque</label>
-            <input
-              class="form-control"
-              placeholder="Bloque"
-              id="block"
-              v-model="updTransc.block"
-              type="text"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="unit" class="form-label">Unidad</label>
-            <input
-              class="form-control"
-              placeholder="Unidad"
-              id="unit"
-              v-model="updTransc.unit"
-              type="text"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="title" class="form-label">Titulo</label>
-            <input
-              class="form-control"
-              placeholder="Introduce el titulo de la trancripcion"
-              id="title"
-              v-model="updTransc.title"
-              type="text"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="text" class="form-label">Transcripcion</label>
-            <textarea
-              class="form-control"
-              placeholder="Introduce el contenido de la transcripcion"
-              id="text"
-              v-model="updTransc.text"
-              type="text"
-              required
-            ></textarea>
-          </div>
-          <div class="d-flex justify-content-center">
-            <ButtonComp
-              type="submit"
-              class="btn btn-sm btn-outline-success"
-              :text="'Modificar'"
-            />
-            <ButtonComp
-              type="reset"
-              @btn-click="showGet"
-              class="btn btn-sm btn-outline-danger"
-              :text="'Cancelar'"
-            />
-          </div>
-        </form>
-      </div>
+    <div class="d-flex justify-content-center">
+      <form @submit.prevent="onSubmit">
+        <div class="mb-3">
+          <label for="block" class="form-label">Bloque</label>
+          <input
+            class="form-control"
+            placeholder="Bloque"
+            id="block"
+            v-model="updTransc.block"
+            type="text"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="unit" class="form-label">Unidad</label>
+          <input
+            class="form-control"
+            placeholder="Unidad"
+            id="unit"
+            v-model="updTransc.unit"
+            type="text"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label">Titulo</label>
+          <input
+            class="form-control"
+            placeholder="Introduce el titulo de la trancripcion"
+            id="title"
+            v-model="updTransc.title"
+            type="text"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="text" class="form-label">Transcripcion</label>
+          <textarea
+            class="form-control"
+            placeholder="Introduce el contenido de la transcripcion"
+            id="text"
+            v-model="updTransc.text"
+            type="text"
+            required
+          ></textarea>
+        </div>
+        <div class="d-flex justify-content-center">
+          <ButtonComp
+            type="submit"
+            class="btn btn-sm btn-outline-success"
+            :text="'Modificar'"
+          />
+          <ButtonComp
+            type="reset"
+            @btn-click="showGet"
+            class="btn btn-sm btn-outline-danger"
+            :text="'Cancelar'"
+          />
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -183,7 +180,7 @@ label {
   font-weight: bold;
 }
 
-form {
+form, .xxol {
   max-width: 45rem;
   min-width: 50%;
 }
@@ -192,6 +189,7 @@ button {
   width: 5rem;
   margin-left: 1rem !important;
   margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
 textarea {
