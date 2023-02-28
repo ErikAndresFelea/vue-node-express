@@ -60,6 +60,7 @@ export default {
       const public_url = this.url;
       const audio_path = this.path;
       this.$emit("auto-transc", public_url, audio_path);
+      alert('Realizando transcripcion... Esto puede llevar varios minutos')
     },
 
     showGet() {
